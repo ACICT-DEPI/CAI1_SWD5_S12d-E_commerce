@@ -1,0 +1,49 @@
+   List<Product> products = new List<Product>
+            {
+               
+                new Product {Name="Table 1", CatId=1,Price= 500, Description="table ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Tables/Table1.jpg"},
+                new Product {Name="Table 2", CatId=1,Price= 550, Description="table ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Tables/Table2.jfif"},
+                new Product {Name="Table 3", CatId=1,Price= 600, Description="table ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Tables/Table3.jpg},
+
+                new Product {Name=" Living Room 1", CatId=2,Price= 1000, Description="Living Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/LivingRooms/LivingRoom1.jpg},
+                new Product {Name=" Living Room 2", CatId=2,Price= 1200, Description="Living Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/LivingRooms/LivingRoom2.jpg},
+                new Product {Name=" Living Room 3", CatId=2,Price= 1400, Description="Living Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/LivingRooms/LivingRoom3.jfif},
+                new Product {Name=" Living Room 4", CatId=2,Price= 1600, Description="Living Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/LivingRooms/LivingRoom1.jfif},
+                
+                new Product {Name=" Kitchen 1", CatId=3,Price= 4000, Description="Kitchen ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Kitchen/kitchen1.jpg},
+                new Product {Name=" Kitchen 2", CatId=3,Price= 5000, Description="Kitchen ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Kitchen/kitchen2.jpg},
+                
+                new Product {Name=" Dining Room 1", CatId=4,Price= 3000, Description="Dining Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/DiningRooms/DiningRoom1.jfif},
+                new Product {Name=" Dining Room 2", CatId=4,Price= 3500, Description="Dining Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/DiningRooms/DiningRoom2.jfif},
+                 
+                new Product {Name=" Cupboard 1", CatId=5,Price= 3000, Description="Cupboard", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Cupboard/Cupboard.jfif},
+                new Product {Name=" Cupboard 2", CatId=5,Price= 3500, Description="Cupboard ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Cupboard/Cupboard2.jfif},
+                
+                new Product {Name=" Chair 1", CatId=6 ,Price= 500, Description="chair ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Chairs/chair1.png},
+                new Product {Name=" Chair 2", CatId=6 ,Price= 500, Description="chair ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Chairs/chair2.jfif},
+                new Product {Name=" Chair 3", CatId=6 ,Price= 500, Description="chair ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Chairs/chair3.jpg},
+                new Product {Name=" Chair 4", CatId=6 ,Price= 500, Description="chair ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Chairs/chair4.jpg},
+                new Product {Name=" Chair 5", CatId=6 ,Price= 500, Description="chair ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/Chairs/chair5.png},
+                
+                new Product {Name=" Bed Room 1", CatId=7 ,Price= 6000, Description="Bed Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/BedRooms/bedroom1.jfif},
+                new Product {Name=" Bed Room 2", CatId=7 ,Price= 7000, Description="Bed Room ", Rate=4, Depth=40, Height=30, Width=60,img1="/images/BedRooms/bedroom2.jfif},
+
+            };
+List<Category> categories = new List<Category>
+            {
+                new Category {Name = "Tables"},
+                
+                new Category {Name = "Living Rooms"},
+
+                 new Category {Name = "Kitchen"},
+
+                 new Category {Name = "Dining Rooms"},
+                 
+                new Category {Name = "Cupboards"},
+                
+                new Category {Name = "Chairs"},
+
+                new Category {Name = "Bed Rooms"}
+
+
+            }

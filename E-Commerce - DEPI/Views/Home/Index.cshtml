@@ -1,8 +1,32 @@
-﻿@{
+﻿@model List<Category>
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_layout";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<br />
+<br />
+
+<div class="container" style="border-radius:40px">
+    <div class="row">
+
+        @foreach(Category c in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 100%;">
+                <img src=@c.Products.FirstOrDefault().img1 class="card-img-top" alt="..." style=" height:200px; width:280px; " />
+                <div class="card-body">
+                    <h5 class="card-title">@c.Name</h5>
+                    <a asp-controller="Home" asp-action="ShowProducts" asp-route-id="@c.Id" class="btn btn-primary">Show Products</a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+    </div>
 </div>
