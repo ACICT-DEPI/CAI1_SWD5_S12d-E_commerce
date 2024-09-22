@@ -5,10 +5,8 @@
 
 }
 
-
 <br />
 <br />
-
 <div class="container" style="border-radius:40px">
     <div class="row">
 
@@ -19,14 +17,11 @@
                 <img src=@c.Products.FirstOrDefault().img1 class="card-img-top" alt="..." style=" height:200px; width:280px; " />
                 <div class="card-body">
                     <h5 class="card-title">@c.Name</h5>
-                    <a asp-controller="Home" asp-action="ShowProducts" asp-route-id="@c.Id" class="btn btn-primary">Show Products</a>
+                        <a asp-controller="Home" asp-action="ShowProducts" asp-route-Catid="@c.Id" class="btn btn-primary">Show Products</a>
                 </div>
             </div>
         </div>
     }
-
-
-
 
     </div>
 </div>
