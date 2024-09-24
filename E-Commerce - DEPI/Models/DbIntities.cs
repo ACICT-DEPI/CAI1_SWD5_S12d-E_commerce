@@ -26,7 +26,7 @@ namespace E_Commerce___DEPI.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-FJ2DD2M\\SQLEXPRESS01;Initial Catalog=GP_Database;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLSERVER;Initial Catalog=GP_Database;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
