@@ -39,6 +39,25 @@ namespace E_Commerce___DEPI.Models
         public float Depth { get; set; }
 
 
-
+        public void Update(Product prd)
+        {
+            Id = prd.Id;
+            Name = prd.Name;
+            Price = prd.Price;
+            Description = prd.Description;
+            img1 = prd.img1;
+            img2 = prd.img2;
+            img3 = prd.img3;
+            img4 = prd.img4;
+            img5 = prd.img5;
+            img6 = prd.img6;
+            Rate = prd.Rate;
+            CatId = prd.CatId;
+            Upholstery_mat_no = prd.Upholstery_mat_no;
+            FrameMateNo = prd.FrameMateNo;
+            Width = prd.Width;
+            Height = prd.Height;
+            Depth = prd.Depth;
+        }
     }
 }

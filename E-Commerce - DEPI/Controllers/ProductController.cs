@@ -21,71 +21,79 @@ namespace GP.Controllers
             return View(context.Products.ToList());
         }
 
+        public IActionResult NotFound(int id)
+        {
+            return View(id);
+        }
+
         public IActionResult Detail(int id)
         {
-            Product? inst = _context.Products.FirstOrDefault(x => x.Id == id);
-            if (inst != null)
+            Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+            if (prd != null)
             {
-                //_context.Entry(inst).Reference(x => x.).Load();
-            }
+                context.Entry(prd).Reference(x => x.Category).Load();
+                context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
 
-            return View(inst);
+                return View(prd);
+            }
+            return RedirectToAction("NotFound", id);
+        }
+
+        public IActionResult Add(Product prd)
+        {
+            return View(prd);
+        }
+
+        [HttpPost]
+        public IActionResult PostAdd(Product prd)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Products.Add(prd);
+                context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Add", prd);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+            if (prd != null)
+                return View(prd);
+            return RedirectToAction("NotFound", id);
+        }
+
+        [HttpPost]
+        public IActionResult PostEdit(Product prd)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = context.Products.FirstOrDefault(x => x.Id == prd.Id);
+                if (product != null)
+                {
+                    product.Update(prd);
+                    context.SaveChanges();
+
+                    return RedirectToAction("Details", prd.Id);
+                }
+            }
+            return RedirectToAction("NotFound", prd.Id);
         }
 
         [HttpPost]
         public IActionResult Delete(int id)
         {
-
-        }
-
-        public IActionResult Add(Product inst)
-        {
-            return View(inst);
-        }
-
-        [HttpPost]
-        public IActionResult PostAdd(Product inst)
-        {
-            if (!string.IsNullOrEmpty(inst.Name) && inst.Salary > 0 && !string.IsNullOrEmpty(inst.Address))
+            Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+            if (prd != null)
             {
-                _context.Products.Add(inst);
-                _context.SaveChanges();
+                context.Products.Remove(prd);
+                context.SaveChanges();
 
-                return RedirectToAction("Index");
+                return View(id);
             }
-            return RedirectToAction("Add", inst);
-        }
-
-        public IActionResult Edit(int id)
-        {
-            Product? inst = _context.Products.FirstOrDefault(x => x.Id == id);
-            if (inst != null)
-            {
-                
-            }
-
-            return View(inst);
-        }
-
-        [HttpPost]
-        public IActionResult PostEdit(Product inst)
-        {
-            if (!string.IsNullOrEmpty(inst.Name) && inst.Salary > 0 && !string.IsNullOrEmpty(inst.Address))
-            {
-                var Product = _context.Products.FirstOrDefault(x => x.Id == inst.Id);
-                if (Product != null)
-                {
-                    Product.Name = inst.Name;
-                    Product.Image = inst.Image;
-                    Product.Salary = inst.Salary;
-                    Product.Address = inst.Address;
-
-                    _context.SaveChanges();
-
-                    return RedirectToAction("Index");
-                }
-            }
-            return RedirectToAction("Edit", inst);
+            return RedirectToAction("NotFound", id);
         }
     }
 }
