@@ -1,8 +1,6 @@
 ﻿using E_Commerce___DEPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.IO;
 
 namespace GP.Controllers
 {
