@@ -12,7 +12,7 @@
             Sort
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" asp-action="ShowProductsSorted" asp-controller="Home" asp-route-id="@Model.FirstOrDefault().CatId" asp-route-criteria="Price">Price </a></li>
+            <li><a class="dropdown-item" asp-action="ShowProductsSorted" asp-controller="Home" asp-route-id="@Model.First().CatId" asp-route-criteria="Price">Price </a></li>
             <li><a class="dropdown-item" asp-action="ShowProductsSorted" asp-controller="Home" asp-route-id="@Model.FirstOrDefault().CatId" asp-route-criteria="Rate">Rate </a></li>
             <li><a class="dropdown-item" asp-action="ShowProductsSorted" asp-controller="Home" asp-route-id="@Model.FirstOrDefault().CatId" asp-route-criteria="Alpha">Alphabeitically</a></li>
         </ul>

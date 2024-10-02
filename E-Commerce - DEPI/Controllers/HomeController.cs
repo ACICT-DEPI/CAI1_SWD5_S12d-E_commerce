@@ -23,9 +23,9 @@ namespace GP.Controllers
 
         public IActionResult Index()
         {
-
             var categories = context.Categories.ToList();
-
+            List<Product> products= context.Products.ToList();
+            ViewBag.products = products;
             return View(categories);
         }
         public IActionResult ShowProducts(int Catid,int pageNo=0)
@@ -107,7 +107,15 @@ namespace GP.Controllers
         public IActionResult Search(string searchQuery)
         {
             List<Product>products = context.Products.Where(x=>x.Name.Contains(searchQuery) ).ToList();
+            if(products .Count > 0)
+            {
             return View(products);
+
+            }
+            else
+            {
+                return View("SearchNoRes");
+            }
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
