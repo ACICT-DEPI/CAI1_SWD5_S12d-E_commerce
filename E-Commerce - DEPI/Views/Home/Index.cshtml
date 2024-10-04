@@ -1,28 +1,110 @@
-﻿@model List<Category>
-@{
-    ViewData["Title"] = "Home Page";
-    Layout = "_layout";
-    List<Product> products =ViewBag.products;
+﻿<!-- Best Selling Products (already implemented) -->
+<div class="container mt-5">
+    <h2>Best Selling Products</h2>
+    <div class="row">
+        @foreach (var product in ViewBag.BestSellingProducts)
+        {
+            <div class="col-12 mb-4">
+                <div class="card h-100">
+                    <div class="row g-0">
+                        <div class="col-5">
+                            <img src="@product.img1" class="img-fluid rounded-start" alt="@product.Name" style="height: 100%; width: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="col-7">
+                            <div class="card-body">
+                                <h3 class="card-title" style="font-size: 2rem;">@product.Name</h3>
+                                <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                    <strong>Price:</strong> $@product.Price
+                                </p>
+                                <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                    <strong>Sold:</strong> @product.AmountSold
+                                </p>
+                                <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                    <strong>Rating:</strong> @product.Rate/5
+                                </p>
+                                <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                    <strong>Description:</strong> @product.Description
+                                </p>
+                                <a asp-action="ShowDetails" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 
-}
+    <!-- Pagination Controls for Best Selling Products -->
+    <nav aria-label="Best Selling Products Page navigation">
+        <ul class="pagination justify-content-center">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
+                </li>
+            }
 
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<!-- Categories Section -->
 <br />
 <br />
 <div class="container" style="border-radius:40px">
+    <h2>Categories</h2>
     <div class="row">
-
-        @foreach(Category c in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card" style="width: 100%;">
-                    <img src=@c.Products.FirstOrDefault().img1 class="card-img-top" alt="..." style=" height:200px; width:280px; " />
-                <div class="card-body">
-                    <h5 class="card-title">@c.Name</h5>
-                        <a asp-controller="Home" asp-action="ShowProducts" asp-route-Catid="@c.Id" class="btn btn-primary">Show Products</a>
+        @foreach (var category in (List<E_Commerce___DEPI.Models.Category>)ViewBag.Categories)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                    <!-- Handle null reference in Products -->
+                    <img src="@category.Products?.FirstOrDefault()?.img1" class="card-img-top" alt="..." style="height: 200px; width: 280px;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@category.Name</h5>
+                        <a asp-controller="Home" asp-action="ShowProducts" asp-route-Catid="@category.Id" class="btn btn-primary">Show Products</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-
+        }
     </div>
+
+    <!-- Pagination Controls for Categories -->
+    <nav aria-label="Categories Page navigation">
+        <ul class="pagination justify-content-center">
+            @if (ViewBag.CategoryCurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage - 1 })">Previous</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.CategoryTotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CategoryCurrentPage ? "active" : "")">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { categoryPage = i })">@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CategoryCurrentPage < ViewBag.CategoryTotalPages)
+            {
+                <li class="page-item">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage + 1 })">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 </div>
