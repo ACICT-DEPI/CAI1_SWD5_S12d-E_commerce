@@ -1,0 +1,517 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\E-Commerce - DEPI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\E-Commerce - DEPI.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\css\\tiny-slider.css",
+      "PackagePath": "staticwebassets\\css\\tiny-slider.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\BedRooms\\bedroom1.jfif",
+      "PackagePath": "staticwebassets\\images\\BedRooms\\bedroom1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\BedRooms\\bedroom2.jfif",
+      "PackagePath": "staticwebassets\\images\\BedRooms\\bedroom2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Chairs\\chair1.png",
+      "PackagePath": "staticwebassets\\images\\Chairs\\chair1.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Chairs\\chair2.jfif",
+      "PackagePath": "staticwebassets\\images\\Chairs\\chair2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Chairs\\chair3.jpg",
+      "PackagePath": "staticwebassets\\images\\Chairs\\chair3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Chairs\\chair4.jpg",
+      "PackagePath": "staticwebassets\\images\\Chairs\\chair4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Chairs\\chair5.png",
+      "PackagePath": "staticwebassets\\images\\Chairs\\chair5.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Cupboard\\Cupboard.jfif",
+      "PackagePath": "staticwebassets\\images\\Cupboard\\Cupboard.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Cupboard\\Cupboard2.jfif",
+      "PackagePath": "staticwebassets\\images\\Cupboard\\Cupboard2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\DiningRooms\\DiningRoom1.jfif",
+      "PackagePath": "staticwebassets\\images\\DiningRooms\\DiningRoom1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\DiningRooms\\DiningRoom2.jfif",
+      "PackagePath": "staticwebassets\\images\\DiningRooms\\DiningRoom2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\HomeBackGround.png",
+      "PackagePath": "staticwebassets\\images\\HomeBackGround.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Kitchen\\Kitchen1.jpg",
+      "PackagePath": "staticwebassets\\images\\Kitchen\\Kitchen1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Kitchen\\Kitchen2.jpg",
+      "PackagePath": "staticwebassets\\images\\Kitchen\\Kitchen2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\LivingRooms\\LivingRoom1.jpg",
+      "PackagePath": "staticwebassets\\images\\LivingRooms\\LivingRoom1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\LivingRooms\\LivingRoom2.jpg",
+      "PackagePath": "staticwebassets\\images\\LivingRooms\\LivingRoom2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\LivingRooms\\LivingRoom3.jfif",
+      "PackagePath": "staticwebassets\\images\\LivingRooms\\LivingRoom3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\LivingRooms\\LivingRoom4.jfif",
+      "PackagePath": "staticwebassets\\images\\LivingRooms\\LivingRoom4.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Tables\\Table1.jpg",
+      "PackagePath": "staticwebassets\\images\\Tables\\Table1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Tables\\Table2.jfif",
+      "PackagePath": "staticwebassets\\images\\Tables\\Table2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\Tables\\Table3.jpg",
+      "PackagePath": "staticwebassets\\images\\Tables\\Table3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\cart.svg",
+      "PackagePath": "staticwebassets\\images\\cart.svg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\img5.png",
+      "PackagePath": "staticwebassets\\images\\img5.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids 10.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids 10.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids1.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids2.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids3.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids4.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids4.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids5.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids5.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids6.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids6.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids7.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids7.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids8.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids8.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\kids\\kids9.jfif",
+      "PackagePath": "staticwebassets\\images\\kids\\kids9.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor1.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor10.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor10.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor2.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor3.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor4.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor4.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor5.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor5.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor6.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor6.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor7.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor7.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor8.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor8.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\outdoor\\outdoor9.jfif",
+      "PackagePath": "staticwebassets\\images\\outdoor\\outdoor9.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\sort-by.svg",
+      "PackagePath": "staticwebassets\\images\\sort-by.svg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\sortIcon.png",
+      "PackagePath": "staticwebassets\\images\\sortIcon.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\star.png",
+      "PackagePath": "staticwebassets\\images\\star.png"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage1.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage1.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage10.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage10.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage2.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage2.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage3.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage3.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage4.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage4.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage5.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage5.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage6.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage6.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage7.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage7.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage8.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage8.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\storage\\storage9.jfif",
+      "PackagePath": "staticwebassets\\images\\storage\\storage9.jfif"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\images\\user.svg",
+      "PackagePath": "staticwebassets\\images\\user.svg"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\js\\custom.js",
+      "PackagePath": "staticwebassets\\js\\custom.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\js\\tiny-slider.js",
+      "PackagePath": "staticwebassets\\js\\tiny-slider.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\moham\\Depi\\E-Commerce - DEPI\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.E-Commerce - DEPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.E-Commerce - DEPI.props",
+      "PackagePath": "build\\E-Commerce - DEPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.E-Commerce - DEPI.props",
+      "PackagePath": "buildMultiTargeting\\E-Commerce - DEPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.E-Commerce - DEPI.props",
+      "PackagePath": "buildTransitive\\E-Commerce - DEPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

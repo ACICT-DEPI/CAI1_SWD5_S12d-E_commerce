@@ -1,0 +1,16 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "ProfileSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<a asp-controller="Profile" asp-action="EditProfile" asp-route-customerId="@Model.Id">Edit Again</a>
+<a asp-controller="Home" asp-action="Index">Return to Home</a>
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Profile Updated Successfully!</h4>
+        <p>Your profile information has been successfully updated.</p>
+        <hr>
+        <p class="mb-0">You can now <a href="@Url.Action("Profile", "Customer")">view your profile</a> or <a href="@Url.Action("EditProfile", "Customer", new { id = Model.Id })">edit it again</a> if needed.</p>
+    </div>
+</div>
