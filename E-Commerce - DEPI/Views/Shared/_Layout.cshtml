@@ -110,10 +110,10 @@
 					<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
 
 					<ul class="list-unstyled custom-social">
-						<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						<li><a href="https://www.facebook.com/kabbanicompany" target="_blank"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+						<li><a href="https://x.com/furnforall?lang=en&mx=2" target="_blank"><span class="fa fa-brands fa-twitter"></span></a></li>
+						<li><a href="https://www.instagram.com/divano.home.furniture/?hl=en" target="_blank"><span class="fa fa-brands fa-instagram"></span></a></li>
+						<li><a href="https://www.linkedin.com/company/ifurniture.ae" target="_blank"><span class="fa fa-brands fa-linkedin"></span></a></li>
 					</ul>
 				</div>
 
@@ -121,35 +121,9 @@
 					<div class="row links-wrap">
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
-								<li><a href="#">About us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Contact us</a></li>
-							</ul>
-						</div>
-
-						<div class="col-6 col-sm-6 col-md-3">
-							<ul class="list-unstyled">
-								<li><a href="#">Support</a></li>
-								<li><a href="#">Knowledge base</a></li>
-								<li><a href="#">Live chat</a></li>
-							</ul>
-						</div>
-
-						<div class="col-6 col-sm-6 col-md-3">
-							<ul class="list-unstyled">
-								<li><a href="#">Jobs</a></li>
-								<li><a href="#">Our team</a></li>
-								<li><a href="#">Leadership</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-
-						<div class="col-6 col-sm-6 col-md-3">
-							<ul class="list-unstyled">
-								<li><a href="#">Nordic Chair</a></li>
-								<li><a href="#">Kruzo Aero</a></li>
-								<li><a href="#">Ergonomic Chair</a></li>
+								<li><a class="nav-link" asp-controller="Home" asp-action="About">About Us</a></li>
+								<li><a class="nav-link" asp-controller="Home" asp-action="Blog">Blog</a></li>
+								<li><a class="nav-link" asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
 							</ul>
 						</div>
 					</div>
@@ -167,8 +141,8 @@
 
 					<div class="col-lg-6 text-center text-lg-end">
 						<ul class="list-unstyled d-inline-flex ms-auto">
-							<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
-							<li><a href="#">Privacy Policy</a></li>
+							<li class="me-4"><a asp-controller="Home" asp-action="TermsAndConditions">Terms &amp; Conditions</a></li>
+							<li><a asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a></li>
 						</ul>
 					</div>
 

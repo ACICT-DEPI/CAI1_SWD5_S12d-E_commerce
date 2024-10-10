@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Our Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1 style="margin-top:20px;">@ViewData["Title"]</h1>
+    <p>Welcome to our blog! Here, we share the latest trends, tips, and insights on furniture, home decor, and interior design. Stay up to date with the newest collections, special promotions, and expert advice from Elegant Furniture.</p>
+
+    <h2>Latest Posts</h2>
+
+    <div class="blog-post">
+        <h3>How to Choose the Perfect Sofa for Your Living Room</h3>
+        <p><small>Posted on October 5, 2024 by <strong>Admin</strong></small></p>
+        <p>Choosing the right sofa is crucial for both comfort and style in your living room. Our guide covers everything you need to know, from size and material to design and color.</p>
+        <a href="https://www.housebeautiful.com/uk/decorate/living-room/a85/buy-sofa/" class="btn btn-primary" target="_blank">Read More</a>
+    </div>
+
+    <div class="blog-post">
+        <h3>Top 5 Interior Design Trends of 2024</h3>
+        <p><small>Posted on September 25, 2024 by <strong>Guest Author</strong></small></p>
+        <p>This year, interior design is all about comfort, sustainability, and a blend of modern and classic styles. Discover the top trends that will transform your home.</p>
+        <a href="https://www.vogue.com/article/interior-design-trends-2024" class="btn btn-primary" target="_blank">Read More</a>
+    </div>
+
+    <div class="blog-post">
+        <h3>5 Tips to Maintain Your Wooden Furniture</h3>
+        <p><small>Posted on September 15, 2024 by <strong>Admin</strong></small></p>
+        <p>Wooden furniture adds warmth and elegance to any home. Here are five simple tips to keep your wooden furniture looking beautiful for years to come.</p>
+        <a href="https://franceandson.com/blogs/recents-blogs/5-tips-for-maintaining-your-solid-wood-furniture" class="btn btn-primary" target="_blank">Read More</a>
+    </div>
+
+    <h2>Subscribe to Our Newsletter</h2>
+    <p>Stay updated with our latest posts, collections, and promotions. Subscribe to our newsletter today!</p>
+
+    <form action="/subscribe" method="post">
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Subscribe</button>
+    </form>
+</div>
+
