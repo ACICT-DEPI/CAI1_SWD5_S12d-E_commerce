@@ -1,6 +1,176 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
-    <h1>Cart</h1>
+    ViewData["Title"] = "About Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cartItems = ViewData["cartItems"] as List<CartItem>;
+}
+
+@{
+    @if (cartItems.Count == 0)
+    {
+        <div class="container-fluid mt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Cart</h5>
+                        </div>
+                        <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center">
+                                <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <h3><strong>Your Cart is Empty</strong></h3>
+                                <h4>Add something to make me happy :)</h4>
+                                <a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else{
+        <section class="h-100 h-custom" style="background-color: #eee;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body p-4">
+
+                                <div class="row">
+
+                                    <div class="col-lg-7">
+                                        <h5 class="mb-3">
+                                            <a href="/" class="text-body">
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
+                                            </a>
+                                        </h5>
+                                        <hr>
+
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <div>
+                                                <p class="mb-1">Shopping cart</p>
+                                                <p class="mb-0">You have @cartItems.Count items in your cart</p>
+                                            </div>
+                                        </div>
+                                        @foreach(var item in cartItems){
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex flex-row align-items-center">
+                                                            <div>
+                                                                <img src=@item.Product.img1
+                                                                     class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                                            </div>
+                                                            <div class="ms-3">
+                                                                <h5>@item.Product.Name</h5>
+                                                                <p class="small mb-0">@item.Product.Description</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex flex-row align-items-center">
+                                                            <div style="width: 50px;">
+                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="DecreaseItemQuantity" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]">-</a></h5>
+                                                            </div>
+                                                            <div style="width: 50px;">
+                                                                <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                                            </div>
+                                                            <div style="width: 50px;">
+                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="IncreaseItemQuantity" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]">+</a></h5>
+                                                            </div>
+                                                            <div style="width: 80px;">
+                                                                <h5 class="mb-0">$@(item.Product.Price * item.Quantity)</h5>
+                                                            </div>
+                                                            <a asp-controller="Customer" asp-action="DeleteCartItem" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        
+                                    </div>
+                                    <div class="col-lg-5">
+
+                                        <div class="card bg-primary text-white rounded-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                    <h5 class="mb-0">Address details</h5>
+                                                </div>
+
+                                                <form class="mt-4">
+                                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                                                               placeholder="Street Name" />
+                                                        <label class="form-label" for="typeName">Street Name</label>
+                                                    </div>
+
+                                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                        <select id="citySelect" class="form-control form-control-lg" name="SelectedCity" style="color:#827589;">
+                                                            <option value="" disabled selected>Select City</option> <!-- Placeholder option -->
+                                                            @foreach (var city in Enum.GetValues(typeof(E_Commerce___DEPI.Models.City)))
+                                                            {
+                                                                <option value="@((int)city)">@city</option>
+                                                            }
+                                                        </select>
+                                                        <label class="form-label" for="citySelect">City</label>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <div class="col-md-6">
+                                                            <div data-mdb-input-init class="form-outline form-white">
+                                                                <input type="number" id="typeText" class="form-control form-control-lg"
+                                                                       placeholder="Home Number" size="1" minlength="3" maxlength="3" />
+                                                                <label class="form-label" for="typeText">Home Number</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div data-mdb-input-init class="form-outline form-white">
+                                                                <input type="number" id="typeText" class="form-control form-control-lg"
+                                                                       placeholder="Zip Code" size="1" minlength="3" maxlength="3" />
+                                                                <label class="form-label" for="typeText">Zip Code</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                                <hr class="my-4">
+
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-2">Subtotal</p>
+                                                    <p class="mb-2">$@ViewData["subTotal"]</p>
+                                                </div>
+
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-2">Shipping</p>
+                                                    <p class="mb-2">$20.00</p>
+                                                </div>
+
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <p class="mb-2">Total(Incl. taxes)</p>
+                                                    <p class="mb-2">$4818.00</p>
+                                                </div>
+
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span>$4818.00</span>
+                                                        <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                    </div>
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
 }
