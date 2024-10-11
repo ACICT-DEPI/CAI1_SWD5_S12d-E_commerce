@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var orders = ViewData["orders"] as List<Order>;
+}
+@{
+    @if (orders == null || !orders.Any())
+    {
+        <p>No orders available.</p>
+    }
+    else
+    {
+        <table class="table table-striped table-hover" style="margin-top:20px;  margin-right:20px; margin-left:20px; margin-bottom:20px;">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in orders)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Date</td>
+                        <td>@item.Id</td>
+                        <td>@item.Customer.Fname @item.Customer.Lname</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <div class="container">
+                                <div class="row mb-3" style="margin-right:20px;">
+                                    <div class="col">
+                                        <a class="btn btn-outline-info btn-sm" asp-controller="Order" asp-action="OrderDetails" asp-route-orderId="@item.Id">Details</a>
+                                    </div>
+                                    <div class="col">
+                                        <select id="orderStateSelect" class="form-select" name="OrderState" style="color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
+                                            <option value="" disabled selected>Change Status</option>
+                                            @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))
+                                            {
+                                                <option value="@((int)state)">@state</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
+}

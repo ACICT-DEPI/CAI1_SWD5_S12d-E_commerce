@@ -9,7 +9,7 @@ namespace E_Commerce___DEPI.Controllers
         public IActionResult Cart(int customerId)
         {
             List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
-            ViewData["cartItems"] = cartItems;;
+            ViewData["cartItems"] = cartItems;
             ViewData["customerId"] = customerId;
             return View();
         }
@@ -91,7 +91,7 @@ namespace E_Commerce___DEPI.Controllers
             return View();
         }
 
-        public IActionResult SubmitCheckout(int customerId, Address address)
+        public IActionResult SubmitCheckout(Address address)
         {
             var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
             var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == address.CustomerId);
