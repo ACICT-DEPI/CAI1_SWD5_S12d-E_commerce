@@ -1,0 +1,94 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cities = ViewData["shippmentCities"] as List<ShippmentCity>;
+}
+@{
+    <div class="col-lg-5">
+
+        <div class="card bg-primary text-white rounded-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">Address details</h5>
+                </div>
+
+                <form class="mt-4" asp-action="SubmitCheckout" asp-controller="Customer" method="get">
+                    <input type="hidden" name="CustomerId" value="@ViewData["customerId"]" />
+                    <input type="hidden" name="subtotal" value="@ViewData["subTotal"]" />
+                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                               placeholder="Street Name" name="Street" />
+                        <label class="form-label" for="typeName">Street Name</label>
+                    </div>
+
+                    <div class="form-outline form-white mb-4">
+                        <select id="citySelect" class="form-control form-control-lg" name="ShippmentCitiesId" style="color:#827589;" onchange="updateShipping()">
+                            <option value="" disabled selected>Select City</option>
+                            @foreach (var city in cities)
+                            {
+                                <option value="@(city.Id)" data-fee="@(city.ShppmentFee)">@city.CityName</option>
+                            }
+                        </select>
+                        <label class="form-label" for="citySelect">City</label>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div data-mdb-input-init class="form-outline form-white">
+                                <input type="number" id="typeText" class="form-control form-control-lg"
+                                       placeholder="Home Number" size="1" minlength="3" maxlength="3" name="Num" />
+                                <label class="form-label" for="typeText">Home Number</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div data-mdb-input-init class="form-outline form-white">
+                                <input type="number" id="typeText" class="form-control form-control-lg"
+                                       placeholder="Zip Code" size="1" minlength="3" maxlength="3" name="ZipCode" />
+                                <label class="form-label" for="typeText">Zip Code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Subtotal</p>
+                        <p class="mb-2">$@ViewData["subTotal"]</p>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-2">Shipping</p>
+                        <p class="mb-2" id="shippingFee">$0.00</p> <!-- Add an ID to update it with JavaScript -->
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <p class="mb-2">Total(Incl. taxes)</p>
+                        <p class="mb-2" id="totalAmount">$@ViewData["subTotal"]</p> <!-- Update total amount based on shipping -->
+                    </div>
+
+                    <input type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg" value="Confirm" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        // JavaScript function to update shipping fee
+        function updateShipping() {
+            const citySelect = document.getElementById("citySelect");
+            const selectedOption = citySelect.options[citySelect.selectedIndex];
+            const shippingFee = selectedOption.getAttribute("data-fee") || 0; // Get the shipping fee from the data attribute
+
+            // Update the shipping fee display
+            document.getElementById("shippingFee").innerText = `$${shippingFee}`;
+
+            // Calculate total amount (You can also include the subtotal from your ViewData)
+            const subtotal = @ViewData["subTotal"]; // Assuming subtotal is already calculated
+            const totalAmount = parseFloat(subtotal) + parseFloat(shippingFee);
+            document.getElementById("totalAmount").innerText = `$${totalAmount.toFixed(2)}`; // Format to 2 decimal places
+        }
+    </script>
+}

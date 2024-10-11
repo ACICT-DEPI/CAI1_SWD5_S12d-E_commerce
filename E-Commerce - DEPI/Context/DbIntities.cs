@@ -22,6 +22,8 @@ namespace E_Commerce___DEPI.Models
         public DbSet<OrdersArchive> OrdersArchives { get; set; }
         public DbSet<UpholsteryMat> UpholsteryMats { get; set; }
 
+        public DbSet<ShippmentCity> ShippmentCities { get; set; }
+
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

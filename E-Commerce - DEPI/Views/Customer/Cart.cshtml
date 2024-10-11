@@ -3,7 +3,7 @@
 *@
 
 @{
-    ViewData["Title"] = "About Us";
+    ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var cartItems = ViewData["cartItems"] as List<CartItem>;
 }
@@ -38,9 +38,7 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body p-4">
-
                                 <div class="row">
-
                                     <div class="col-lg-7">
                                         <h5 class="mb-3">
                                             <a href="/" class="text-body">
@@ -88,88 +86,20 @@
                                                 </div>
                                             </div>
                                         }
-                                        
                                     </div>
-                                    <div class="col-lg-5">
-
-                                        <div class="card bg-primary text-white rounded-3">
-                                            <div class="card-body">
-                                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                                    <h5 class="mb-0">Address details</h5>
-                                                </div>
-
-                                                <form class="mt-4">
-                                                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                                                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                                                               placeholder="Street Name" />
-                                                        <label class="form-label" for="typeName">Street Name</label>
-                                                    </div>
-
-                                                    <div data-mdb-input-init class="form-outline form-white mb-4">
-                                                        <select id="citySelect" class="form-control form-control-lg" name="SelectedCity" style="color:#827589;">
-                                                            <option value="" disabled selected>Select City</option> <!-- Placeholder option -->
-                                                            @foreach (var city in Enum.GetValues(typeof(E_Commerce___DEPI.Models.City)))
-                                                            {
-                                                                <option value="@((int)city)">@city</option>
-                                                            }
-                                                        </select>
-                                                        <label class="form-label" for="citySelect">City</label>
-                                                    </div>
-
-                                                    <div class="row mb-4">
-                                                        <div class="col-md-6">
-                                                            <div data-mdb-input-init class="form-outline form-white">
-                                                                <input type="number" id="typeText" class="form-control form-control-lg"
-                                                                       placeholder="Home Number" size="1" minlength="3" maxlength="3" />
-                                                                <label class="form-label" for="typeText">Home Number</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div data-mdb-input-init class="form-outline form-white">
-                                                                <input type="number" id="typeText" class="form-control form-control-lg"
-                                                                       placeholder="Zip Code" size="1" minlength="3" maxlength="3" />
-                                                                <label class="form-label" for="typeText">Zip Code</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-
-                                                <hr class="my-4">
-
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="mb-2">Subtotal</p>
-                                                    <p class="mb-2">$@ViewData["subTotal"]</p>
-                                                </div>
-
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="mb-2">Shipping</p>
-                                                    <p class="mb-2">$20.00</p>
-                                                </div>
-
-                                                <div class="d-flex justify-content-between mb-4">
-                                                    <p class="mb-2">Total(Incl. taxes)</p>
-                                                    <p class="mb-2">$4818.00</p>
-                                                </div>
-
-                                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg">
-                                                    <div class="d-flex justify-content-between">
-                                                        <span>$4818.00</span>
-                                                        <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                                    </div>
-                                                </button>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                 </div>
-
+                                <div class="col-lg-5" style="margin-top:30px; justify-content: end">
+                                    <a type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg" asp-action="Checkout" asp-controller="Customer" asp-route-customerId="@ViewData["customerId"]">
+                                        <div class="d-flex">
+                                            <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </section>
     }

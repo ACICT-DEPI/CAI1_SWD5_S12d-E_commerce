@@ -9,14 +9,8 @@ namespace E_Commerce___DEPI.Controllers
         public IActionResult Cart(int customerId)
         {
             List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
-            ViewData["cartItems"] = cartItems;
+            ViewData["cartItems"] = cartItems;;
             ViewData["customerId"] = customerId;
-            double subTotal = 0;
-            foreach(var item in cartItems)
-            {
-                subTotal += item.Product.Price * item.Quantity;
-            }
-            ViewData["subTotal"] = subTotal;
             return View();
         }
 
@@ -80,6 +74,37 @@ namespace E_Commerce___DEPI.Controllers
             }
             return RedirectToAction("Cart", new { customerId = customerId });
 
+        }
+
+        public IActionResult Checkout(int customerId)
+        {
+            List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
+            List<ShippmentCity> shippmentCities = context.ShippmentCities.ToList();
+            ViewData["shippmentCities"] = shippmentCities;
+            ViewData["customerId"] = customerId;
+            double subTotal = 0;
+            foreach (var item in cartItems)
+            {
+                subTotal += item.Product.Price * item.Quantity;
+            }
+            ViewData["subTotal"] = subTotal;
+            return View();
+        }
+
+        public IActionResult SubmitCheckout(int customerId, Address address)
+        {
+            var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
+            var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == address.CustomerId);
+
+            if (selectedCity != null && selectedCustomer !=null)
+            {
+                address.ShippmentCities = selectedCity;
+                address.Customer = selectedCustomer;
+                context.Addresses.Add(address);
+                context.SaveChanges();
+            }
+            // Redirect to the Cart action in the desired controller
+            return RedirectToAction("Index", "Home", new { page = 1, categoryPage = 1 });
         }
     }
 }
