@@ -82,41 +82,8 @@ namespace GP.Controllers
         }
 
 
-        public IActionResult ShowProducts(int Catid,int pageNo=0)
-        {
-            ViewBag.catid = Catid;
-            ViewBag.next = pageNo + 1;
-            ViewBag.prev = pageNo - 1;
-            if(pageNo<=0)
-            {
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(0 * 6).Take(6).ToList();
-                ViewBag.next = pageNo + 2;
 
-                return View(page);
 
-            }
-            else if(pageNo>=context.Products.Count()/6)
-            {
-                int no = (context.Products.Count() / 6) - 1;
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(no * 6).Take(6).ToList();
-                ViewBag.prev = pageNo - 2;
-
-                return View(page);
-
-            }
-            else
-            {
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(pageNo * 6).Take(6).ToList();
-                return View(page);
-
-            }
-
-        }
-        public IActionResult ShowDetails(int id)
-        {
-            Product product = context.Products.Find( id);
-            return View(product);
-        }
         //  ISSUE HERE: need to sort first then paginate , and may combine this action with the show products
         public IActionResult ShowProductsSorted(string criteria, int id , int Catid, int pageNo = 0)
         {

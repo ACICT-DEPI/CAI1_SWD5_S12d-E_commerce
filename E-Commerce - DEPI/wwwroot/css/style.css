@@ -709,3 +709,23 @@ textarea {
     height: 50px;
     border-radius: 50%;
     background: rgba(59, 93, 80, 0.2); }
+
+/* General pagination styles */
+.pagination {
+    background-color: #fff;
+    color: #3b5d50; /* Color for regular pagination items */
+}
+
+    /* Active pagination item styling */
+    .pagination .active .page-link {
+        background-color: #3b5d50; /* Background color for the active page */
+        color: #fff; /* Text color for the active page */
+        border-color: #3b5d50; /* Optional: Match border color */
+    }
+
+    /* Hover effect for pagination items */
+    .pagination .page-link:hover {
+        background-color: #3b5d50; /* Hover background color */
+        color: #fff; /* Hover text color */
+        border-color: #3b5d50; /* Optional: Match border color */
+    }
