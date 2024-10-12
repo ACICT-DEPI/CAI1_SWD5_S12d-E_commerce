@@ -2,9 +2,29 @@
 @{
     ViewData["Title"] = "ShowProducts";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string currentSortOrder = ViewBag.CurrentSortOrder as string;
+    string nextSortOrder = (currentSortOrder == "asc") ? "desc" : "asc";
 }
-
 <br />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<div class="sort-button mt-3">
+    <a asp-action="ShowProducts"
+       asp-route-Catid="@ViewBag.catid"
+       asp-route-sortOrder="@nextSortOrder"
+       asp-route-pageNo="@ViewBag.CurrentPage"
+       class="btn sorting" >
+        Sort by Price
+        @if (currentSortOrder == "asc")
+        {
+            <span> <i class="bi bi-arrow-up"></i></span>
+        }
+        else
+        {
+            <span> <i class="bi bi-arrow-down"></i></span>
+        }
+    </a>
+</div>
 <br />
 
 <div class="container" style="border-radius:40px">

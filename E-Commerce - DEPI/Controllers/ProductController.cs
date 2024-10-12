@@ -23,27 +23,36 @@ namespace GP.Controllers
         {
             return View(id);
         }
-        public IActionResult ShowProducts(int Catid, int pageNo = 1)
+        public IActionResult ShowProducts(int Catid, string sortOrder = "asc", int pageNo = 1)
         {
             const int PageSize = 6; // Number of products per page
 
             ViewBag.catid = Catid;
+            ViewBag.CurrentSortOrder = sortOrder;
 
             // Get the total count of products in the selected category
             var totalProducts = context.Products.Where(x => x.CatId == Catid).Count();
 
-            // Fetch the products for the current page
-            var products = context.Products
-                                  .Where(x => x.CatId == Catid)
-                                  .Skip((pageNo - 1) * PageSize)
-                                  .Take(PageSize)
-                                  .ToList();
+            // Sort products based on the current sortOrder
+            var products = context.Products.Where(x => x.CatId == Catid);
+
+            if (sortOrder == "asc")
+            {
+                products = products.OrderBy(p => p.Price); // Sort Ascending
+            }
+            else if (sortOrder == "desc")
+            {
+                products = products.OrderByDescending(p => p.Price); // Sort Descending
+            }
+
+            // Apply pagination
+            var paginatedProducts = products.Skip((pageNo - 1) * PageSize).Take(PageSize).ToList();
 
             // Calculate total pages for pagination
             ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / PageSize);
             ViewBag.CurrentPage = pageNo;
 
-            return View(products);
+            return View(paginatedProducts);
         }
 
         //show details of certain product
