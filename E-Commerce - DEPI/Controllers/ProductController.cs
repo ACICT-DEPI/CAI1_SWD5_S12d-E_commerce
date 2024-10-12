@@ -1,5 +1,6 @@
 ﻿using E_Commerce___DEPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace GP.Controllers
@@ -14,69 +15,46 @@ namespace GP.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pagenum)
         {
-            return View(context.Products.ToList());
+            const int ItemsPerPage = 9;
+
+            if (pagenum < 1)
+                pagenum = 1;
+
+            ViewBag.CurrentPage = pagenum;
+            ViewBag.TotalPages = (int)Math.Ceiling(context.Products.Count() / (float)ItemsPerPage);
+
+            return View(context.Products
+                .Skip((pagenum - 1) * ItemsPerPage)
+                .Take(ItemsPerPage)
+                .Include(x => x.Category)
+                .ToList()
+                );
         }
 
         public IActionResult NotFound(int id)
         {
             return View(id);
         }
-        public IActionResult ShowProducts(int Catid, string sortOrder = "asc", int pageNo = 1)
-        {
-            const int PageSize = 6; // Number of products per page
 
-            ViewBag.catid = Catid;
-            ViewBag.CurrentSortOrder = sortOrder;
-
-            // Get the total count of products in the selected category
-            var totalProducts = context.Products.Where(x => x.CatId == Catid).Count();
-
-            // Sort products based on the current sortOrder
-            var products = context.Products.Where(x => x.CatId == Catid);
-
-            if (sortOrder == "asc")
-            {
-                products = products.OrderBy(p => p.Price); // Sort Ascending
-            }
-            else if (sortOrder == "desc")
-            {
-                products = products.OrderByDescending(p => p.Price); // Sort Descending
-            }
-
-            // Apply pagination
-            var paginatedProducts = products.Skip((pageNo - 1) * PageSize).Take(PageSize).ToList();
-
-            // Calculate total pages for pagination
-            ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / PageSize);
-            ViewBag.CurrentPage = pageNo;
-
-            return View(paginatedProducts);
-        }
-
-        //show details of certain product
-        public IActionResult ShowDetails(int id)
-        {
-            Product product = context.Products.Find(id);
-            return View(product);
-        }
         public IActionResult Detail(int id)
         {
             Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
             if (prd != null)
             {
                 context.Entry(prd).Reference(x => x.Category).Load();
-                context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
+                //context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
 
                 return View(prd);
             }
             return RedirectToAction("NotFound", id);
         }
 
-        public IActionResult Add(Product prd)
+        public IActionResult Add()
         {
-            return View(prd);
+			ViewBag.Categories = new SelectList(context.Categories.ToList(), "Id", "Name");
+			return View();
         }
 
         [HttpPost]
@@ -85,18 +63,23 @@ namespace GP.Controllers
             if (ModelState.IsValid)
             {
                 context.Products.Add(prd);
-                context.SaveChanges();
+                context.SaveChanges();  
 
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Add", prd);
+
+			ViewBag.Categories = new SelectList(context.Categories.ToList(), "Id", "Name");
+			return View("Add", prd);
         }
 
         public IActionResult Edit(int id)
         {
             Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
             if (prd != null)
-                return View(prd);
+            {
+				ViewBag.Categories = new SelectList(context.Categories.ToList(), "Id", "Name");
+				return View(prd);
+            }
             return RedirectToAction("NotFound", id);
         }
 
@@ -111,24 +94,39 @@ namespace GP.Controllers
                     product.Update(prd);
                     context.SaveChanges();
 
-                    return RedirectToAction("Details", prd.Id);
+                    return RedirectToAction("Index");
                 }
+                else
+                    return RedirectToAction("NotFound", prd.Id);
             }
-            return RedirectToAction("NotFound", prd.Id);
+            return View("Edit", prd);
         }
 
-        [HttpPost]
         public IActionResult Delete(int id)
         {
-            Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
-            if (prd != null)
-            {
-                context.Products.Remove(prd);
-                context.SaveChanges();
+			Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+			if (prd != null)
+			{
+				context.Entry(prd).Reference(x => x.Category).Load();
+				//context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
 
-                return View(id);
-            }
-            return RedirectToAction("NotFound", id);
-        }
-    }
+				return View(prd);
+			}
+			return RedirectToAction("NotFound", id);
+		}
+
+		[HttpGet]
+		public IActionResult PostDelete(int id)
+		{
+			Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+			if (prd != null)
+			{
+				context.Products.Remove(prd);
+				context.SaveChanges();
+
+				return RedirectToAction("Index");
+			}
+			return RedirectToAction("NotFound", id);
+		}
+	}
 }

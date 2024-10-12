@@ -1,0 +1,109 @@
+﻿@{
+	ViewData["Title"] = "Add - Product";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Product
+
+<h2 class="alert text-center">Add New Product</h2>
+
+<div class="container">
+	<div class="row align-items-center">
+		<form class="ms-4 w-auto" method="post" asp-action="PostAdd">
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Name"></label>
+				<input type="text" asp-for="Name" class="form-control">
+				<span asp-validation-for="Name" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Price"></label>
+				<input type="text" asp-for="Price" class="form-control">
+				<span asp-validation-for="Price" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Description"></label>
+				<input type="text" asp-for="Description" class="form-control">
+				<span asp-validation-for="Description" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img1"></label>
+				<input type="text" asp-for="img1" class="form-control">
+				<span asp-validation-for="img1" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img2"></label>
+				<input type="text" asp-for="img2" class="form-control">
+				<span asp-validation-for="img2" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img3"></label>
+				<input type="text" asp-for="img3" class="form-control">
+				<span asp-validation-for="img3" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img4"></label>
+				<input type="text" asp-for="img4" class="form-control">
+				<span asp-validation-for="img4" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img5"></label>
+				<input type="text" asp-for="img5" class="form-control">
+				<span asp-validation-for="img5" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="img6"></label>
+				<input type="text" asp-for="img6" class="form-control">
+				<span asp-validation-for="img6" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Rate"></label>
+				<input type="text" asp-for="Rate" class="form-control">
+				<span asp-validation-for="Rate" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Category"></label>
+				<select asp-for="CatId" asp-items="@ViewBag.Categories" class="form-control" aria-describedby="serviceHelp">
+					<option selected disabled>Select...</option>
+				</select>
+				<span asp-validation-for="CatId" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Width"></label>
+				<input type="text" asp-for="Width" class="form-control">
+				<span asp-validation-for="Width" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Height"></label>
+				<input type="text" asp-for="Height" class="form-control">
+				<span asp-validation-for="Height" class="form-text text-danger"></span>
+			</div>
+
+			<div class="mb-3 ms-3">
+				<label asp-for="Depth"></label>
+				<input type="text" asp-for="Depth" class="form-control">
+				<span asp-validation-for="Depth" class="form-text text-danger"></span>
+			</div>
+
+			<div asp-validation-summary="ModelOnly" class="form-group text-danger pt-3"></div>
+
+			<div class="mb-3">
+				<button type="submit" class="btn btn-primary ms-2">Add</button>
+				<a class="btn btn-danger ms-2" asp-action="Index">Back</a>
+			</div>
+
+		</form>
+	</div>
+</div>
