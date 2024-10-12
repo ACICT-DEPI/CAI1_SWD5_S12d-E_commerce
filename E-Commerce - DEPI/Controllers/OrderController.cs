@@ -64,9 +64,6 @@ namespace E_Commerce___DEPI.Controllers
             return View(remainingArchivedOrders);
         }
 
-
-
-
         public IActionResult OrderDetails(int orderId)
         {
             Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
@@ -107,6 +104,12 @@ namespace E_Commerce___DEPI.Controllers
                 // Check if the status is Canceled
                 if (newOrderState == E_Commerce___DEPI.Models.OrderState.Canceled)
                 {
+                    // remove the related order items
+                    if (order.OrderdItems != null && order.OrderdItems.Any())
+                    {
+                        // Delete the related order items
+                        context.OrderdItems.RemoveRange(order.OrderdItems); // Remove all items related to the order
+                    }
                     // Remove the order from the database
                     context.Orders.Remove(order);
                     ViewData["isOrderDeleted"] = true;
@@ -117,6 +120,30 @@ namespace E_Commerce___DEPI.Controllers
             }
 
             return RedirectToAction("ListOrder");
+        }
+
+        public IActionResult DeleteArchivedOrder(int orderId)
+        {
+            var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
+            if (arrchivedOrder != null)
+            {
+                // Get the related order from the orders database
+                var relatedOrder = context.Orders.FirstOrDefault(o => o.Id == arrchivedOrder.OrderId);
+                if (relatedOrder != null) {
+                    // Get the related order items from the items database
+                    if (relatedOrder.OrderdItems != null && relatedOrder.OrderdItems.Any())
+                    {
+                        // Delete the related order items
+                        context.OrderdItems.RemoveRange(relatedOrder.OrderdItems); // Remove all items related to the order
+                    }
+                    context.Orders.Remove(relatedOrder);
+                }
+                // Remove the order from the database
+                context.OrderArchives.Remove(arrchivedOrder);
+                context.SaveChanges();
+
+            }
+                return RedirectToAction("ListArchivedOrders");
         }
 
     }

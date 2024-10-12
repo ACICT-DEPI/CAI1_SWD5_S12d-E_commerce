@@ -7,7 +7,7 @@
     var archivedOrders = ViewData["archivedOrders"] as List<OrderArchive>;
 }
 @{
-    <table class="table table-striped table-hover" style="margin-top:20px;  margin-right:20px; margin-left:20px; margin-bottom:20px;">
+    <table class="table table-striped table-hover" style="margin-top:20px;  margin-right:100px; margin-left:20px; margin-bottom:20px;">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -22,10 +22,12 @@
             {
                 <tr>
                     <th scope="row">@item.Id</th>
-                    <td>@item.ArchiveDate</td>
+                    <td>@item.ArchiveDate.ToShortDateString()</td>
                     <td>@item.Order.Customer.Fname @item.Order.Customer.Lname</td>
                     <th scope="row">@item.Order.Address.ShippmentCities.CityName</th>
-                    <th scope="row">@item.Order.Address.ShippmentCities.CityName</th>
+                    <th scope="row">
+                        <a asp-controller="Order" asp-action="DeleteArchivedOrder" asp-route-orderId="@item.Id" style="color: #cecece;" class="btn btn-danger">Delete Order</a>
+                    </th>
                 </tr>
             }
         </tbody>
