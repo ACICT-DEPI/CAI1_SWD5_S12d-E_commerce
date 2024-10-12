@@ -18,8 +18,7 @@ namespace E_Commerce___DEPI.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<OrderdItem> OrderdItems { get; set; }
-        public DbSet<OrderedItemsArchive> OrderedItemsArchives { get; set; }
-        public DbSet<OrdersArchive> OrdersArchives { get; set; }
+        public DbSet<OrderArchive> OrderArchives { get; set; }
         public DbSet<UpholsteryMat> UpholsteryMats { get; set; }
 
         public DbSet<ShippmentCity> ShippmentCities { get; set; }
@@ -34,8 +33,7 @@ namespace E_Commerce___DEPI.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
+           
         }
 
     }

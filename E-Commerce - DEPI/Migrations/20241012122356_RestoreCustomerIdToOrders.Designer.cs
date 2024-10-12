@@ -4,6 +4,7 @@ using E_Commerce___DEPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce___DEPI.Migrations
 {
     [DbContext(typeof(DbIntities))]
-    partial class DbIntitiesModelSnapshot : ModelSnapshot
+    [Migration("20241012122356_RestoreCustomerIdToOrders")]
+    partial class RestoreCustomerIdToOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,27 +250,6 @@ namespace E_Commerce___DEPI.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("E_Commerce___DEPI.Models.OrderArchive", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("ArchiveDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderArchives");
-                });
-
             modelBuilder.Entity("E_Commerce___DEPI.Models.OrderdItem", b =>
                 {
                     b.Property<int>("Id")
@@ -295,6 +277,55 @@ namespace E_Commerce___DEPI.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderdItems");
+                });
+
+            modelBuilder.Entity("E_Commerce___DEPI.Models.OrderedItemsArchive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderedItemsArchives");
+                });
+
+            modelBuilder.Entity("E_Commerce___DEPI.Models.OrdersArchive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrdersArchives");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.Product", b =>
@@ -468,23 +499,12 @@ namespace E_Commerce___DEPI.Migrations
                         .HasForeignKey("AddressId");
 
                     b.HasOne("E_Commerce___DEPI.Models.Customer", "Customer")
-                        .WithMany("Orders")
+                        .WithMany("Order")
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("Address");
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("E_Commerce___DEPI.Models.OrderArchive", b =>
-                {
-                    b.HasOne("E_Commerce___DEPI.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.OrderdItem", b =>
@@ -500,6 +520,34 @@ namespace E_Commerce___DEPI.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("E_Commerce___DEPI.Models.OrderedItemsArchive", b =>
+                {
+                    b.HasOne("E_Commerce___DEPI.Models.Order", "Order")
+                        .WithMany("OrderedItemsArchives")
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("E_Commerce___DEPI.Models.Product", "Product")
+                        .WithMany("orderedItemsArchives")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("E_Commerce___DEPI.Models.OrdersArchive", b =>
+                {
+                    b.HasOne("E_Commerce___DEPI.Models.Customer", null)
+                        .WithMany("OrdersArchive")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("E_Commerce___DEPI.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.Product", b =>
@@ -537,7 +585,9 @@ namespace E_Commerce___DEPI.Migrations
 
                     b.Navigation("CartItems");
 
-                    b.Navigation("Orders");
+                    b.Navigation("Order");
+
+                    b.Navigation("OrdersArchive");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.FrameMat", b =>
@@ -548,11 +598,15 @@ namespace E_Commerce___DEPI.Migrations
             modelBuilder.Entity("E_Commerce___DEPI.Models.Order", b =>
                 {
                     b.Navigation("OrderdItems");
+
+                    b.Navigation("OrderedItemsArchives");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.Product", b =>
                 {
                     b.Navigation("orderdItems");
+
+                    b.Navigation("orderedItemsArchives");
                 });
 
             modelBuilder.Entity("E_Commerce___DEPI.Models.UpholsteryMat", b =>

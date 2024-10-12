@@ -32,7 +32,7 @@ namespace E_Commerce___DEPI.Models
         public virtual UpholsteryMat? UpholsteryMat { get; set; }
         [ForeignKey("FrameMateNo")]
         public int? FrameMateNo { get; set; }
-        public virtual List<OrderedItemsArchive>? orderedItemsArchives { get; set; }
+        //public virtual List<OrderedItemsArchive>? orderedItemsArchives { get; set; }
         public virtual List<OrderdItem>? orderdItems { get; set; }
         public float Width { get; set; }
         public float Height { get; set; }

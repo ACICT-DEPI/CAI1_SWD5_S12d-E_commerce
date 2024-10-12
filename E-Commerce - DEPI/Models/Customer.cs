@@ -36,11 +36,13 @@ namespace E_Commerce___DEPI.Models
         public int AddressId { get; set; }
 
         public virtual Address? Address { get; set; }
-        public virtual List<Order>? Order { get; set; }
+        //public virtual List<Order>? Order { get; set; }
+        // Updated to use ICollection
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-        public virtual List<CartItem>? CartItems { get; set; }
+        public virtual ICollection<CartItem>? CartItems { get; set; } = new List<CartItem>();
 
-        public virtual List<OrdersArchive>? OrdersArchive { get; set; }
+        //public virtual ICollection<OrdersArchive>? OrdersArchive { get; set; } = new List<OrdersArchive>();
 
-     }
+    }
 }
