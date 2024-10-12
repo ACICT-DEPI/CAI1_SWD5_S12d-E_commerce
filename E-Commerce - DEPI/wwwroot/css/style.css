@@ -729,3 +729,10 @@ textarea {
         color: #fff; /* Hover text color */
         border-color: #3b5d50; /* Optional: Match border color */
     }
+
+.sorting {
+    color: #fff;
+    background-color: #3b5d50;
+    margin-left: 70px;
+    border-color: azure;
+}

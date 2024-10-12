@@ -83,61 +83,39 @@ namespace GP.Controllers
 
 
 
-
-        //  ISSUE HERE: need to sort first then paginate , and may combine this action with the show products
-        public IActionResult ShowProductsSorted(string criteria, int id , int Catid, int pageNo = 0)
+        public IActionResult Search(string searchQuery, int pageNo = 1, string sortOrder = "asc")
         {
-            if(criteria == "Rate")
+            const int PageSize = 6; // Number of products per page
+
+            // Fetch all products that match the search query
+            var productsQuery = context.Products.Where(x => x.Name.Contains(searchQuery));
+
+            // Sorting logic
+            ViewBag.CurrentSortOrder = sortOrder;
+            productsQuery = sortOrder == "asc" ? productsQuery.OrderBy(p => p.Price) : productsQuery.OrderByDescending(p => p.Price);
+
+            // Get the total count of products for pagination
+            var totalProducts = productsQuery.Count();
+
+            // Fetch products for the current page
+            var products = productsQuery.Skip((pageNo - 1) * PageSize).Take(PageSize).ToList();
+
+            // Set ViewBag variables for pagination and sorting
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / PageSize);
+            ViewBag.CurrentPage = pageNo;
+            ViewBag.SearchQuery = searchQuery;
+            ViewBag.NextSortOrder = (sortOrder == "asc") ? "desc" : "asc";
+
+            if (products.Count > 0)
             {
-                ViewBag.catid = Catid;
-                ViewBag.next = pageNo + 1;
-                ViewBag.prev = pageNo - 1;
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(pageNo * 6).OrderBy(x => x.Rate).Take(6).ToList();
-
-                return View("ShowProducts", page);
-            }
-            else if (criteria == "Price")
-            {
-                ViewBag.catid = Catid;
-                ViewBag.next = pageNo + 1;
-                ViewBag.prev = pageNo - 1;
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(pageNo * 6).OrderBy(x => x.Price).Take(6).ToList();
-
-                return View("ShowProducts", page);
-            }
-            else if (criteria == "Alpha")
-            {
-                ViewBag.catid = Catid;
-                ViewBag.next = pageNo + 1;
-                ViewBag.prev = pageNo - 1;
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(pageNo * 6).OrderBy(x => x.Name).Take(6).ToList();
-
-                return View("ShowProducts", page);
-            }
-            else
-            {
-                ViewBag.catid = Catid;
-                ViewBag.next = pageNo + 1;
-                ViewBag.prev = pageNo - 1;
-                var page = context.Products.Where(x => x.CatId == Catid).Skip(pageNo * 6).OrderBy(x => x.Rate).Take(6).ToList();
-
-                return View("ShowProducts", page);
-            }
-
-        }
-        public IActionResult Search(string searchQuery)
-        {
-            List<Product>products = context.Products.Where(x=>x.Name.Contains(searchQuery) ).ToList();
-            if(products .Count > 0)
-            {
-            return View(products);
-
+                return View(products);
             }
             else
             {
                 return View("SearchNoRes");
             }
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
