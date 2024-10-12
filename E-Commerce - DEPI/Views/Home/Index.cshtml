@@ -25,7 +25,7 @@
                                 <p class="card-text mb-1" style="font-size: 1.25rem;">
                                     <strong>Description:</strong> @product.Description
                                 </p>
-                                <a asp-action="ShowDetails" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-primary">View Details</a>
+                                <a asp-action="ShowDetails" asp-controller="Product" asp-route-id="@product.Id" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -40,21 +40,21 @@
             @if (ViewBag.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
+                    <a class="page-link pagination " href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
                 </li>
             }
 
             @for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    <a class="page-link pagination" href="@Url.Action("Index", new { page = i })">@i</a>
                 </li>
             }
 
             @if (ViewBag.CurrentPage < ViewBag.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+                    <a class="page-link pagination" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
                 </li>
             }
         </ul>
@@ -75,7 +75,7 @@
                     <img src="@category.Products?.FirstOrDefault()?.img1" class="card-img-top" alt="..." style="height: 200px; width: 280px;" />
                     <div class="card-body">
                         <h5 class="card-title">@category.Name</h5>
-                        <a asp-controller="Home" asp-action="ShowProducts" asp-route-Catid="@category.Id" class="btn btn-primary">Show Products</a>
+                        <a asp-controller="Product" asp-action="ShowProducts" asp-route-Catid="@category.Id" class="btn btn-primary">Show Products</a>
                     </div>
                 </div>
             </div>
@@ -88,21 +88,21 @@
             @if (ViewBag.CategoryCurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage - 1 })">Previous</a>
+                    <a class="page-link pagination" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage - 1 })">Previous</a>
                 </li>
             }
 
             @for (int i = 1; i <= ViewBag.CategoryTotalPages; i++)
             {
                 <li class="page-item @(i == ViewBag.CategoryCurrentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { categoryPage = i })">@i</a>
+                    <a class="page-link pagination" style="" href="@Url.Action("Index", new { categoryPage = i })">@i</a>
                 </li>
             }
 
             @if (ViewBag.CategoryCurrentPage < ViewBag.CategoryTotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage + 1 })">Next</a>
+                    <a class="page-link pagination" href="@Url.Action("Index", new { categoryPage = ViewBag.CategoryCurrentPage + 1 })">Next</a>
                 </li>
             }
         </ul>

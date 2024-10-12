@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Context\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
 
   <ItemGroup>
