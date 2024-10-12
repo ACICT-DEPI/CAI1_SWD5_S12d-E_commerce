@@ -20,5 +20,25 @@ namespace E_Commerce___DEPI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ChangeOrderStatus(int orderId, int OrderState)
+        {
+            // Fetch the order based on the ID
+            var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+
+            if (order != null)
+            {
+                // Update the order's status
+                order.Status = (OrderState)OrderState;
+
+                // Save the changes to the database
+                context.SaveChanges();
+            }
+
+            // Redirect back to the list or the same page
+            return RedirectToAction("ListOrder");
+        }
+
+
     }
 }
