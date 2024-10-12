@@ -36,21 +36,33 @@
                         <td>
                             <div class="container">
                                 <div class="row mb-3" style="margin-right:20px;">
-                                    <div class="col">
+                                    <!-- Make the Details button take less space -->
+                                    <div class="col-4">
                                         <a class="btn btn-outline-info btn-sm" asp-controller="Order" asp-action="OrderDetails" asp-route-orderId="@item.Id">Details</a>
                                     </div>
-                                    <div class="col">
-                                        <select id="orderStateSelect" class="form-select" name="OrderState" style="color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
-                                            <option value="" disabled selected>Change Status</option>
-                                            @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))
-                                            {
-                                                <option value="@((int)state)">@state</option>
-                                            }
-                                        </select>
+
+                                    <!-- Make the form column take more space -->
+                                    <div class="col-8">
+                                        <form asp-action="ChangeOrderStatus" asp-controller="Order" method="post" class="d-flex align-items-center">
+                                            <input type="hidden" name="orderId" value="@item.Id" />
+
+                                            <!-- Align Select and Button Side by Side -->
+                                            <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
+                                                <option value="" disabled selected>Change Status</option>
+                                                @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))
+                                                {
+                                                    <option value="@((int)state)">@state</option>
+                                                }
+                                            </select>
+
+                                            <button type="submit" class="btn btn-outline-success btn-sm" style="width: 200px;">Update Status</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </td>
+
+
                     </tr>
                 }
             </tbody>
