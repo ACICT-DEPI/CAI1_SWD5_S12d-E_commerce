@@ -1,113 +1,145 @@
-﻿@{
-    ViewData["Title"] = "Details - Product";
+﻿@using System.Globalization
+@using System
+@using E_Commerce___DEPI.Session;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@model Product
+@{
+    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   User? user = SessionHelper.GetUser(HttpContextAccessor);
+
 }
 
-@model Product
 
-<h2 class="alert text-center">Product Details</h2>
+<html>
+<head>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="product-details-container">
+        <div class="product-details-single-product">
+            <div class="product-details-row">
+                <div class="product-details-col-6">
+                    <div class="product-details-product-image">
+                        <div class="product-details-product-image-main">
+                            <img src="@Model.img1" alt="" id="product-details-product-main-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-details-col-6">
+                    <!-- breadcrumb (commented out) -->
+                    <div class="product-details-product">
+                        <div class="product-details-product-title">
+                            <h2>@Model.Name</h2>
+                        </div>
+                        <div class="product-details-product-rating">
+                            <span><i class="bx bxs-star"></i></span>
+                            <span><i class="bx bxs-star"></i></span>
+                            <span><i class="bx bxs-star"></i></span>
+                            <span><i class="bx bxs-star"></i></span>
+                            <span><i class="bx bxs-star"></i></span>
+                            <span class="product-details-review">(@ViewBag.rate_count reviews)</span>
+                        </div>
+                    </div>
+                    <div class="product-details-product-price">
+                        <span class="product-details-offer-price">$@Model.Price</span>
+                        <span class="product-details-sale-price">@Math.Round(Model.Price * 1.1).ToString("c", CultureInfo.GetCultureInfo("en-us"))</span>
 
-<div class="container">
-	<div class="row align-items-center">
+                    </div>
+                    <div class="product-details-product-description">
+                        <h3>description</h3>
+                        <p>
+                            @Model.Description lorem ipsum dolor sit amet consectetur adipisicing elite 
+                            lorem ipsum dolor sit amet consectetur adipisicing elit
+                            lorem ipsum dolor sit amet consectetur adipisicing elit
+                            lorem ipsum dolor sit amet consectetur adipisicing elit
+                        </p>
+                        <p>
+                            width: @Model.Width - height: @Model.Height - depth: @Model.Depth
+                        </p>
+                    </div>
+                    <span class="product-details-divider"></span>
+                    <p>delivered in 3-5 days</p>
+                    <div class="product-details-product-btn-group">
+                        <a asp-action="checkout" asp-controller="payment" class="text-decoration-none">
+                            <div class="product-details-button product-details-buy-now">
+                                <i class='bx bxs-cart'></i> add to cart
+                            </div>
+                        </a>
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------  show related products  ------------------------------------>
+    <!--------------------------  show others feedbacks  ------------------------------------>
+    @foreach (Feedback feedback in ViewBag.RelatedFeedbacks)
+    {
+        <div class="feedback-container">
+            <h3 class="feedback-owner-name">
+                @feedback.Customer.FullName
+            </h3>
+            <p class="feedback-rate">
+                @feedback.Rate /5
+            </p>
+            <p class="feedback-date">
+                29/9/2024
+            </p>
+            <p class="feedback-content">
+                @feedback.Content
+            </p>
 
-		<form class="col-md-7">
-			<div class="mb-3 ms-3">
-				<label asp-for="Id"></label>
-				<input type="text" asp-for="Id" class="form-control" readonly>
-			</div>
+        </div>
+    }
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Name"></label>
-				<input type="text" asp-for="Name" class="form-control" readonly>
-			</div>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Price"></label>
-				<input type="text" class="form-control" value="$@Model.Price" readonly>
-			</div>
+    <!---------------------------------------------  add feedback part   ------------------------------------>
+    <div class="product-details-add-feedback-cont">
+        <div class="product-details-add-feedback-stars">
+            <form asp-action="AddFeedback" asp-controller="Product" method="post">
+                <!-- Star rating -->
+                <input class="product-details-add-feedback-star product-details-add-feedback-star-5"
+                                      id="product-details-add-feedback-star-5-2"
+                                      type="radio" value="5" name="Rate" />
+                <label class="product-details-add-feedback-star product-details-add-feedback-star-5" for="product-details-add-feedback-star-5-2"></label>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Description"></label>
-				<input type="text" asp-for="Description" class="form-control" readonly>
-			</div>
+                <input class="product-details-add-feedback-star product-details-add-feedback-star-4"
+                                             id="star4"
+                                             type="radio" value="4" name="Rate" />
+                <label class="product-details-add-feedback-star product-details-add-feedback-star-4" for="star4"></label>
 
-			@if (ViewBag.IsAdmin)
-			{
-				<div class="mb-3 ms-3">
-					<label asp-for="img1"></label>
-					<input type="text" asp-for="img1" class="form-control" readonly>
-				</div>
+                <input class="product-details-add-feedback-star product-details-add-feedback-star-3"
+                                             id="star3"
+                                             type="radio" value="3" name="Rate" />
+                <label class="product-details-add-feedback-star product-details-add-feedback-star-3" for="star3"></label>
 
-				@if (Model.img2 != null)
-				{
-					<div class="mb-3 ms-3">
-						<label asp-for="img2"></label>
-						<input type="text" asp-for="img2" class="form-control" readonly>
-					</div>
-				}
+                <input class="product-details-add-feedback-star product-details-add-feedback-star-2"
+                                             id="star2"
+                                             type="radio" value="2" name="Rate" />
+                <label class="product-details-add-feedback-star product-details-add-feedback-star-2" for="star2"></label>
 
-				@if (Model.img3 != null)
-				{
-					<div class="mb-3 ms-3">
-						<label asp-for="img3"></label>
-						<input type="text" asp-for="img3" class="form-control" readonly>
-					</div>
-				}
+                <input class="product-details-add-feedback-star product-details-add-feedback-star-1"
+                                             id="star1"
+                                             type="radio" value="1" name="Rate" />
+                <label class="product-details-add-feedback-star product-details-add-feedback-star-1"  for="star1"></label>
 
-				@if (Model.img4 != null)
-				{
-					<div class="mb-3 ms-3">
-						<label asp-for="img4"></label>
-						<input type="text" asp-for="img4" class="form-control" readonly>
-					</div>
-				}
+                <!-- Feedback content -->
+                <textarea class="product-details-add-feedback-review" name="Content" placeholder="Leave your feedback here" required></textarea>
 
-				@if (Model.img5 != null)
-				{
-					<div class="mb-3 ms-3">
-						<label asp-for="img5"></label>
-						<input type="text" asp-for="img5" class="form-control" readonly>
-					</div>
-				}
+                <!-- Hidden fields for ProductId and CustomerId -->
+                <input type="hidden" name="ProductId" value="@Model.Id" />
+                <input type="hidden" name="CustomerId" value="@ViewBag.Id" />
 
-				@if (Model.img6 != null)
-				{
-					<div class="mb-3 ms-3">
-						<label asp-for="img6"></label>
-						<input type="text" asp-for="img6" class="form-control" readonly>
-					</div>
-				}
-			}
+                <!-- Submit button -->
+                <input class="product-details-add-feedback-feedback_submit_button" type="submit" value="Submit" />
+            </form>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Rate"></label>
-				<input type="text" asp-for="Rate" class="form-control" readonly>
-			</div>
+        </div>
+    </div>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Category"></label>
-				<input type="text" asp-for="Category.Name" class="form-control" readonly>
-			</div>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="Width"></label>
-				<input type="text" asp-for="Width" class="form-control" readonly>
-			</div>
-
-			<div class="mb-3 ms-3">
-				<label asp-for="Height"></label>
-				<input type="text" asp-for="Height" class="form-control" readonly>
-			</div>
-
-			<div class="mb-3 ms-3">
-				<label asp-for="Depth"></label>
-				<input type="text" asp-for="Depth" class="form-control" readonly>
-			</div>
-
-			<div class="mb-3">
-				<a class="btn btn-danger ms-2" asp-controller="Product" asp-action="Index">Back</a>
-			</div>
-		
-		</form>
-	</div>
-</div>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
