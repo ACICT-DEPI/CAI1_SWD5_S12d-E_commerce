@@ -1,6 +1,7 @@
 ﻿using E_Commerce___DEPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace E_Commerce___DEPI.Controllers
 {
@@ -28,7 +29,7 @@ namespace E_Commerce___DEPI.Controllers
             return View();
         }
 
-        public IActionResult ListArchivedOrders()
+        public IActionResult ListArchivedOrders(string sortOrder, string searchTerm)
         {
             // Get today's date
             DateTime currentDate = DateTime.Now;
@@ -72,6 +73,26 @@ namespace E_Commerce___DEPI.Controllers
                                                                  .Where(oa => oa.ArchiveDate >= currentDate.AddDays(-14))
                                                                  .ToList();
 
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                remainingArchivedOrders = remainingArchivedOrders.Where(oa =>
+                    (oa.Order.Customer.Fname + " " + oa.Order.Customer.Lname).Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Sorting logic
+            if (sortOrder != null)
+            {
+                switch (sortOrder)
+                {
+                    case "date_desc":
+                        remainingArchivedOrders = remainingArchivedOrders.OrderByDescending(o => o.ArchiveDate).ToList();
+                        break;
+                    default:
+                        remainingArchivedOrders = remainingArchivedOrders.OrderBy(o => o.ArchiveDate).ToList();
+                        break;
+                }
+            }
             ViewData["archivedOrders"] = remainingArchivedOrders;
 
             // Pass the remaining orders to the view
@@ -87,8 +108,9 @@ namespace E_Commerce___DEPI.Controllers
 
         [HttpPost]
 
-        public IActionResult ChangeOrderStatus(int orderId, int orderState, bool isList)
+        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList)
         {
+            bool isListBool = isList == "true";
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
@@ -132,7 +154,7 @@ namespace E_Commerce___DEPI.Controllers
                 // Save the changes to the database
                 context.SaveChanges();
             }
-            if (isList)
+            if (isListBool == true)
             {
                 return RedirectToAction("ListOrder");
             }
