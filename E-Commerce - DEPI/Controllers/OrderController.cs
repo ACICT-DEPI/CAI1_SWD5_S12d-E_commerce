@@ -21,8 +21,8 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult ListOrder(string sortOrder, string searchTerm)
         {
-            //if (!SessionHelper.IsLoggedIn(this, context))
-            //    return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context, true))
+                return View(HomeController.UnauthorizedView);
 
             List<Order> orders = context.Orders.ToList();
 
@@ -53,11 +53,11 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult ListArchivedOrders(string sortOrder, string searchTerm)
         {
-			//if (!SessionHelper.IsLoggedIn(this, context))
-			//	return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context, true))
+                return View(HomeController.UnauthorizedView);
 
-			// Get today's date
-			DateTime currentDate = DateTime.Now;
+            // Get today's date
+            DateTime currentDate = DateTime.Now;
 
             // Find orders archived more than 14 days ago
             var ordersToDelete = context.OrderArchives
@@ -126,10 +126,7 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult OrderDetails(int orderId, string isAdmin, string isArchived)
         {
-			//if (!SessionHelper.IsLoggedIn(this, context))
-			//	return View(HomeController.LoggedInView);
-
-			Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+            Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
             List<OrderdItem> orderItems = order.OrderdItems.ToList();
             ViewData["order"] = order;
             ViewData["orderItems"] = orderItems;
@@ -140,6 +137,10 @@ namespace E_Commerce___DEPI.Controllers
             {
                 ViewData["isArchivedBool"] = isArchivedBool;
             }
+            if (!SessionHelper.IsLoggedIn(this, context) && !isAdminBool)
+                return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context, true) && isAdminBool)
+                return View(HomeController.UnauthorizedView);
             return View();
         }
 
@@ -147,13 +148,15 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList, string isAdmin, string isArchived)
         {
-			//if (!SessionHelper.IsLoggedIn(this, context))
-			//	return View(HomeController.LoggedInView);
-
-			bool isListBool = isList == "true";
+            bool isListBool = isList == "true";
             bool isAdmintBool = isAdmin == "true";
             bool isArchivedBool = isArchived == "true";
-            
+
+            if (!SessionHelper.IsLoggedIn(this, context) && !isAdmintBool)
+                return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context, true) && isAdmintBool)
+                return View(HomeController.UnauthorizedView);
+
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
@@ -241,6 +244,8 @@ namespace E_Commerce___DEPI.Controllers
         }
 
         public IActionResult CancelOrder(int orderId) {
+            if (!SessionHelper.IsLoggedIn(this, context))
+                return View(HomeController.LoggedInView);
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
@@ -259,10 +264,10 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult DeleteArchivedOrder(int orderId)
         {
-			//if (!SessionHelper.IsLoggedIn(this, context))
-			//	return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context, true))
+                return View(HomeController.UnauthorizedView);
 
-			var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
+            var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
             if (arrchivedOrder != null)
             {
                 // Get the related order from the orders database
@@ -285,10 +290,10 @@ namespace E_Commerce___DEPI.Controllers
         }
         public IActionResult CustomerOrders(int id)
         {
-			//if (!SessionHelper.IsLoggedIn(this, context))
-			//	return View(HomeController.LoggedInView);
+            if (!SessionHelper.IsLoggedIn(this, context))
+                return View(HomeController.LoggedInView);
 
-			IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
+            IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
             //var orderArchives= context.OrderArchives.Where(o=>o.Order.CustomerId == id);
             //ViewBag.orders = orders;
             //ViewBag.orderArchives = orderArchives;
