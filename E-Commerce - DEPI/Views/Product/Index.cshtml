@@ -8,7 +8,10 @@
 <div class="container" style="border-radius:40px">
     <h2 class="pt-4 pb-3">Products</h2>
 
-    <a class="btn btn-primary mb-4" asp-action="Add">New Product</a>
+    @if (ViewBag.IsAdmin)
+    {
+        <a class="btn btn-primary mb-4" asp-action="Add">New Product</a>
+    }
 
     <div class="row">
         @foreach (var prd in Model)
@@ -35,8 +38,12 @@
 
                             <div class="container pt-3">
                                 <a class="btn btn-info" asp-action="Detail" asp-route-id="@prd.Id">Details</a>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@prd.Id">Edit</a>
-                                <a class="btn btn-danger" style="background-color: #dc3545; border-color: #dc3545;" asp-action="Delete" asp-route-id="@prd.Id">Delete</a>
+
+                                @if (ViewBag.IsAdmin)
+                                {
+                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@prd.Id">Edit</a>
+                                    <a class="btn btn-danger" style="background-color: #dc3545; border-color: #dc3545;" asp-action="Delete" asp-route-id="@prd.Id">Delete</a>
+                                }
                             </div>
                         </span>
                     </div>
@@ -51,21 +58,21 @@
             @if (ViewBag.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-pagenum="@((int)ViewBag.CurrentPage - 1)">Previous</a>
+                    <a class="page-link" asp-action="Index" asp-route-catid="@ViewBag.CatId" asp-route-pagenum="@((int)ViewBag.CurrentPage - 1)">Previous</a>
                 </li>
             }
 
             @for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
                 <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-action="Index" asp-route-pagenum="@i">@i</a>
+                    <a class="page-link" asp-action="Index" asp-route-catid="@ViewBag.CatId" asp-route-pagenum="@i">@i</a>
                 </li>
             }
 
             @if (ViewBag.CurrentPage < ViewBag.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-pagenum="@((int)ViewBag.CurrentPage + 1)">Next</a>
+                    <a class="page-link" asp-action="Index" asp-route-catid="@ViewBag.CatId" asp-route-pagenum="@((int)ViewBag.CurrentPage + 1)">Next</a>
                 </li>
             }
         </ul>

@@ -17,20 +17,25 @@ namespace GP.Controllers
 			_logger = logger;
         }
 
-        public IActionResult Index(int pagenum)
+        public IActionResult Index(int pagenum, int catid)
         {
-			if (!SessionHelper.IsLoggedIn(this, context, true))
-				return View(HomeController.UnauthorizedView);
-
-			const int ItemsPerPage = 9;
+            const int ItemsPerPage = 9;
 
             if (pagenum < 1)
                 pagenum = 1;
 
-            ViewBag.CurrentPage = pagenum;
-            ViewBag.TotalPages = (int)Math.Ceiling(context.Products.Count() / (float)ItemsPerPage);
+            IQueryable<Product> products = context.Products;
+            if (catid > 0)
+                products = products.Where(x => x.CatId == catid);
 
-            return View(context.Products
+            ViewBag.CurrentPage = pagenum;
+            ViewBag.TotalPages = (int)Math.Ceiling(products.Count() / (float)ItemsPerPage);
+
+            User? user = SessionHelper.GetUser(this, context);
+            ViewBag.IsAdmin = user != null && user.IsAdmin;
+            ViewBag.CatId = catid;
+
+            return View(products
                 .Skip((pagenum - 1) * ItemsPerPage)
                 .Take(ItemsPerPage)
                 .Include(x => x.Category)
@@ -45,17 +50,15 @@ namespace GP.Controllers
 
         public IActionResult Detail(int id)
         {
-            User? user = SessionHelper.GetUser(this, context);
-			if (user == null)
-				return View(HomeController.LoggedInView);
-
 			Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
             if (prd != null)
             {
                 context.Entry(prd).Reference(x => x.Category).Load();
 				//context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
 
-				ViewBag.IsAdmin = user.IsAdmin;
+				User? user = SessionHelper.GetUser(this, context);
+				ViewBag.IsAdmin = user != null && user.IsAdmin;
+
 				return View(prd);
             }
             return RedirectToAction("NotFound", id);
@@ -155,7 +158,6 @@ namespace GP.Controllers
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("NotFound", id);
-	
         }
     }
 }
