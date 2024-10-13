@@ -1,0 +1,38 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form >
+    <div class="mb-3">
+        <label asp-for="Fname" class="form-label" ></label>
+        <input asp-for="Fname" disabled class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Lname" class="form-label"></label>
+        <input asp-for="Lname" disabled class="form-control" />
+        <span asp-validation-for="Lname" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" disabled class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" disabled class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" type="text" disabled  class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <a asp-action="Edit" asp-controller="Profile" asp-route-id="@ViewBag.CustomerId" class="btn btn-primary">Edit</a>
+    <a asp-controller="Order" asp-action="CustomerOrders" asp-route-id="@ViewBag.CustomerId" class="btn btn-primary">View My Orders</a>
+
+</form>

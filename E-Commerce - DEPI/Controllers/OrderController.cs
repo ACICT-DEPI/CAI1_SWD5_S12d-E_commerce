@@ -145,6 +145,15 @@ namespace E_Commerce___DEPI.Controllers
             }
                 return RedirectToAction("ListArchivedOrders");
         }
+        public IActionResult CustomerOrders(int id)
+        {
+            IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
+            //var orderArchives= context.OrderArchives.Where(o=>o.Order.CustomerId == id);
+            //ViewBag.orders = orders;
+            //ViewBag.orderArchives = orderArchives;
+
+            return View(orders);
+        }
 
     }
 }

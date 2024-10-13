@@ -1,0 +1,23 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "viewCustomerProfile";
+}
+
+<h1>viewCustomerProfile</h1>
+
+<div class="mb-3">
+    <label for="Name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="Name" placeholder="@Model.FullName">
+</div>
+<div class="mb-3">
+    <label for="Email" class="form-label">Email</label>
+    <input type="text" class="form-control" id="Email" placeholder="@Model.Email">
+</div>
+<div class="mb-3">
+    <label for="Phone" class="form-label">Phone</label>
+    <input type="text" class="form-control" id="phone" placeholder="@Model.Phone">
+</div>
+
+<div>
+   <a asp-controller="Order" asp-action="CustomerOrders" asp-route-id="@Model.Id" class="btn btn-primary"> View My Orders</a>
+</div>
