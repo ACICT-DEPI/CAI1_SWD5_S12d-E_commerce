@@ -124,7 +124,7 @@ namespace E_Commerce___DEPI.Controllers
             return View(remainingArchivedOrders);
         }
 
-        public IActionResult OrderDetails(int orderId, string isAdmin)
+        public IActionResult OrderDetails(int orderId, string isAdmin, string isArchived)
         {
 			//if (!SessionHelper.IsLoggedIn(this, context))
 			//	return View(HomeController.LoggedInView);
@@ -135,18 +135,25 @@ namespace E_Commerce___DEPI.Controllers
             ViewData["orderItems"] = orderItems;
             bool isAdminBool = isAdmin == "true";
             ViewData["isAdminBool"] = isAdminBool;
+            bool isArchivedBool = isArchived == "true";
+            if (isArchivedBool)
+            {
+                ViewData["isArchivedBool"] = isArchivedBool;
+            }
             return View();
         }
 
         [HttpPost]
 
-        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList, string isAdmin)
+        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList, string isAdmin, string isArchived)
         {
 			//if (!SessionHelper.IsLoggedIn(this, context))
 			//	return View(HomeController.LoggedInView);
 
 			bool isListBool = isList == "true";
             bool isAdmintBool = isAdmin == "true";
+            bool isArchivedBool = isArchived == "true";
+            
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
@@ -159,7 +166,7 @@ namespace E_Commerce___DEPI.Controllers
                 order.Status = newOrderState;
 
                 // Check if the status is Delivered
-                if (newOrderState == E_Commerce___DEPI.Models.OrderState.Delivered)
+                if (newOrderState == E_Commerce___DEPI.Models.OrderState.Delivered && !isArchivedBool)
                 {
                     // Create a new OrdersArchive instance
                     var OrderArchives = new OrderArchive
@@ -171,6 +178,17 @@ namespace E_Commerce___DEPI.Controllers
                     // Add the OrdersArchive entry to the database
                     context.OrderArchives.Add(OrderArchives);
                     ViewData["isOrderArchived"] = true;
+                }
+
+                if (isArchivedBool && newOrderState != E_Commerce___DEPI.Models.OrderState.Delivered)
+                {
+                    // Fetch the archivedOrder based on the ID
+                    var archivedOrder = context.OrderArchives.FirstOrDefault(o => o.OrderId == orderId);
+                    if (archivedOrder != null) {
+                        context.OrderArchives.Remove(archivedOrder);
+                        context.SaveChanges();
+                        return RedirectToAction("ListArchivedOrders");
+                    }
                 }
 
                 // Check if the status is Canceled
@@ -185,19 +203,28 @@ namespace E_Commerce___DEPI.Controllers
                     // Remove the order from the database
                     context.Orders.Remove(order);
                     ViewData["isOrderDeleted"] = true;
-                    // Save the changes to the database
-                    context.SaveChanges();
                     if (!isAdmintBool)
                     {
+                        // Save the changes to the database
+                        context.SaveChanges();
                         // Redirect to the Cart action in the desired controller
                         return RedirectToAction("Index", "Home", new { page = 1, categoryPage = 1 });
                     }
                     else
                     {
+                        // Save the changes to the database
+                        context.SaveChanges();
+                        if (isArchivedBool)
+                        {
+                            return RedirectToAction("ListArchivedOrders");
+                        }
                         return RedirectToAction("ListOrder");
                     }
                 }
             }
+            // Save the changes to the database
+            context.SaveChanges();
+
             if (isListBool == true)
             {
                 return RedirectToAction("ListOrder");

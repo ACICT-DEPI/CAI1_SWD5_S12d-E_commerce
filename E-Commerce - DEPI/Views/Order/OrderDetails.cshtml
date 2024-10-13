@@ -7,6 +7,7 @@
     var order = ViewData["order"] as E_Commerce___DEPI.Models.Order; // Retrieve from ViewData
     var orderItems = ViewData["orderItems"] as List<OrderdItem>; // Retrieve from ViewData
     bool isAdmin = ViewData["isAdminBool"] != null && (bool)ViewData["isAdminBool"];
+    bool isArchived = ViewData["isArchivedBool"] != null && (bool)ViewData["isArchivedBool"];
 }
 
 @{
@@ -26,8 +27,9 @@
                                         <input type="hidden" name="orderId" value="@order.Id" />
                                         <input type="hidden" name="isList" value="false" />
                                         <input type="hidden" name="isAdmin" value="true" />
-                                        
-                                        <!-- Align Select and Button Side by Side -->
+                                        @if(isArchived){
+                                        <input type="hidden" name="isArchived" value="true" />
+                                        }                                        <!-- Align Select and Button Side by Side -->
                                         <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
                                             <option value="" disabled selected>Change Status</option>
                                             @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))

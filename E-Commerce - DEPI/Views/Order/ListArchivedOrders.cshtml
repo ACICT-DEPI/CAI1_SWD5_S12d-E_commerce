@@ -53,7 +53,10 @@
                     <td>@item.Order.Customer.Fname @item.Order.Customer.Lname</td>
                     <th scope="row">@item.Order.Address.ShippmentCities.CityName</th>
                     <th scope="row">
-                        <a asp-controller="Order" asp-action="DeleteArchivedOrder" asp-route-orderId="@item.Id" style="color: #cecece;" class="btn btn-danger">Delete Order</a>
+                        
+                        <div class="col-4">
+                            <a class="btn btn-outline-info btn-sm" asp-controller="Order" asp-action="OrderDetails" asp-route-orderId="@item.Order.Id" asp-route-isAdmin="true" asp-route-isArchived="true">Details</a>
+                        </div>
                     </th>
                 </tr>
         }
