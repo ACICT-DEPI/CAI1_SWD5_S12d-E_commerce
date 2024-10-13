@@ -127,6 +127,30 @@ namespace GP.Controllers
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("NotFound", id);
-		}
-	}
+	
+        }
+        public IActionResult ShowProducts(int Catid, int pageNo = 1)
+        {
+            const int PageSize = 6; // Number of products per page
+            ViewBag.catid = Catid;
+            // Get the total count of products in the selected category
+            var totalProducts = context.Products.Where(x => x.CatId == Catid).Count();
+            // Fetch the products for the current page
+            var products = context.Products
+                                  .Where(x => x.CatId == Catid)
+                                  .Skip((pageNo - 1) * PageSize)
+                                  .Take(PageSize)
+                                  .ToList();
+            // Calculate total pages for pagination
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalProducts / PageSize);
+            ViewBag.CurrentPage = pageNo;
+
+            return View(products);
+        }
+        public IActionResult ShowDetails(int id)
+        {
+            Product product = context.Products.Find(id);
+            return View(product);
+        }
+    }
 }

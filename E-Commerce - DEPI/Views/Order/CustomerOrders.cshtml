@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "CustomerOrders";
+}
+
+@foreach(var order in Model)
+{
+    <div class="card">
+
+        <div class="card-body">
+            <h5 class="card-title"><strong>ID:</strong> #@order.Id</h5>
+            <h5 class="card-title"><strong>Status:</strong> @order.Status</h5>
+            <h5 class="card-title"><strong>Date:</strong> @order.Date</h5>
+            
+            <h5 class="card-title"><strong>Total:</strong> @order.total</h5>
+            <a href="#" class="btn btn-secondary">Show Details</a>
+        </div>
+    </div>
+}

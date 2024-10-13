@@ -23,12 +23,5 @@ public class Address
     [ForeignKey("ShippmentCitiesId")]
     public virtual ShippmentCity? ShippmentCities { get; set; }
 
-    // Foreign key for Customer
-    public int? CustomerId { get; set; }
-
-    // Navigation property
-    [ForeignKey("CustomerId")]
-    public virtual Customer? Customer { get; set; }
-
     public virtual List<Order>? Orders { get; set; }
 }

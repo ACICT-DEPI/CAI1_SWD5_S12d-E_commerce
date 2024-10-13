@@ -1,4 +1,13 @@
-﻿<!-- /*
+﻿@using Microsoft.AspNetCore.Http;
+@using E_Commerce___DEPI.Session;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{
+	// is logged in?
+	User? user = SessionHelper.GetUser(HttpContextAccessor);
+}
+
+<!-- /*
 * Bootstrap 5
 * Template Name: Furni
 * Template Author: Untree.co
@@ -56,14 +65,25 @@
 						</form>
 					</li>
 
+					@if (user != null)
+					{
+						<li><a class="nav-link">@user.FullName</a></li>
+					}
 				</ul>
 
 				<div class="navbar-nav mb-2 mb-md-0 ms-5">
 					<div class="nav-link dropdown">
 						<img class="dropbtn" src="/images/user.svg">
 						<div class="dropdown-content align-content-center">
-							<a class="text-primary fs-6 fw-bold" href="#">Login</a>
-							<a class="text-primary fs-6 fw-bold" href="#">Register</a>
+							@if (user == null)
+							{
+								<a class="text-primary fs-6 fw-bold" asp-controller="Home" asp-action="Login">Login</a>
+								<a class="text-primary fs-6 fw-bold" asp-controller="Home" asp-action="Register">Register</a>
+							}
+							else
+							{
+								<a class="text-primary fs-6 fw-bold" asp-controller="Home" asp-action="Logout">Logout</a>
+							}
 						</div>
 					</div>
 
