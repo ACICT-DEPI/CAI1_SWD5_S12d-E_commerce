@@ -24,14 +24,16 @@ namespace E_Commerce___DEPI.Models
 
         public DbSet<ShippmentCity> ShippmentCities { get; set; }
 
+		public DbIntities(DbContextOptions<DbIntities> options) : base(options)
+		{
+			
+		}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlServer("Data Source=188.165.47.6,49778; Initial Catalog=GP_Database; User ID=depi; Password=123456qweQWE; TrustServerCertificate=True;MultipleActiveResultSets=True;");
-
             base.OnConfiguring(optionsBuilder);
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

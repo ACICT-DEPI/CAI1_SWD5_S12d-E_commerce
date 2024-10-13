@@ -15,17 +15,18 @@ namespace GP.Controllers
 {
     public class HomeController : Controller
     {
-		public const string LoggedInView = "LoginRequired",
-							LoggedOutView = "LogoutRequired",
-							UnauthorizedView = "Unauthorized";
+		public const string LoggedInView = "../Home/LoginRequired",
+							LoggedOutView = "../Home/LogoutRequired",
+							UnauthorizedView = "../Home/Unauthorized";
 
-		DbIntities context = new DbIntities();
+		DbIntities context;
         private readonly ILogger<HomeController> _logger;
         private const int PageSize = 10; // Number of items per page
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DbIntities _context, ILogger<HomeController> logger)
         {
-            _logger = logger;
+			context = _context;
+			_logger = logger;
         }
 
         public IActionResult Privacy()

@@ -23,7 +23,7 @@ namespace E_Commerce___DEPI.Models
 		{
 			get
 			{
-				return Lname + " " + Fname;
+				return Fname + " " + Lname;
 			}
 		}
 

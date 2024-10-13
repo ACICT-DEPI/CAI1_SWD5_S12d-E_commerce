@@ -28,6 +28,17 @@
             </div>
         }
         <div class="row">
+            <div class="col text-end d-flex"> <!-- Flexbox to align items in the center -->
+                <form class="form-inline my-2 my-lg-0 d-flex" asp-controller="Order" asp-action="ListOrder">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="searchTerm" aria-label="Search" style="width: 150px;" /> <!-- Set width here -->
+                    <button type="submit" class="border-0"> <!-- Added 'border-0' class -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </form>
+                <a asp-controller="Order" asp-action="ListOrder" style="margin-left:20px;"> View All Orders</a>
+            </div>
             <div class="col text-end">
                 <a asp-controller="Order" asp-action="ListOrder" asp-route-sortOrder="date_desc" class="d-inline-block mx-2">
                     <!-- d-inline-block keeps the icon inline, and mx-2 adds a small margin -->
@@ -78,7 +89,7 @@
                                         <div class="col-8">
                                             <form asp-action="ChangeOrderStatus" asp-controller="Order" method="post" class="d-flex align-items-center">
                                                 <input type="hidden" name="orderId" value="@item.Id" />
-                                                <input type="hidden" name="isList" value="@true" />
+                                                <input type="hidden" name="isList" value="true" />
                                                 <!-- Align Select and Button Side by Side -->
                                                 <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
                                                     <option value="" disabled selected>Change Status</option>

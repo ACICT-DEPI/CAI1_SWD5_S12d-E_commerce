@@ -1,7 +1,16 @@
+using E_Commerce___DEPI.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<DbIntities>(options => options
+.UseLazyLoadingProxies()
+.UseSqlServer("Data Source=188.165.47.6,49778; Initial Catalog=GP_Database; User ID=depi; Password=123456qweQWE; TrustServerCertificate=True;")
+);
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
