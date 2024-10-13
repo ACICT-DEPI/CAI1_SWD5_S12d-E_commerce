@@ -10,9 +10,9 @@ namespace E_Commerce___DEPI.Controllers
 		DbIntities context;
 		private readonly ILogger<ProfileController> _logger;
 
-		public ProfileController(DbIntities context, ILogger<ProfileController> logger)
+		public ProfileController(DbIntities _context, ILogger<ProfileController> logger)
 		{
-            context = context;
+            context = _context;
 			_logger = logger;
 		}
 

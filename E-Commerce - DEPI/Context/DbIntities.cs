@@ -7,7 +7,6 @@ namespace E_Commerce___DEPI.Models
     {
         public DbIntities()
         {
-            SessionHelper.SetDbContext(this);
         }
 
         public DbSet<Product> Products { get; set; }
@@ -30,9 +29,12 @@ namespace E_Commerce___DEPI.Models
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
+		{
+            optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.UseSqlServer("Data Source=188.165.47.6,49778; Initial Catalog=GP_Database; User ID=depi; Password=123456qweQWE; TrustServerCertificate=True;");
+
+			base.OnConfiguring(optionsBuilder);
+		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

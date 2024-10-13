@@ -8,12 +8,7 @@ namespace E_Commerce___DEPI.Session
 	{
 		private const string UserInfoKey = "UserId";
 
-		private static DbIntities? PrivateContext = null;
-
-		public static void SetDbContext(DbIntities context)
-		{
-			PrivateContext = context;
-		}
+		private static DbIntities PrivateContext = new DbIntities();
 
 		public static void SetUser(Controller controller, User user)
 		{
