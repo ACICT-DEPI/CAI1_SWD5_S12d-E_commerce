@@ -1,8 +1,10 @@
-﻿using E_Commerce___DEPI.Models;
+﻿using Castle.Core.Resource;
+using E_Commerce___DEPI.Models;
 using E_Commerce___DEPI.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GP.Controllers
 {
@@ -48,23 +50,53 @@ namespace GP.Controllers
             return View(id);
         }
 
-        public IActionResult Detail(int id)
-        {
+		public IActionResult Detail(int id)
+		{
 			Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
-            if (prd != null)
-            {
-                context.Entry(prd).Reference(x => x.Category).Load();
-				//context.Entry(prd).Reference(x => x.UpholsteryMat).Load();
+			if (prd != null)
+			{
+                User? user = SessionHelper.GetUser(this, context);
 
-				User? user = SessionHelper.GetUser(this, context);
-				ViewBag.IsAdmin = user != null && user.IsAdmin;
+                if ((user!= null) &&  SessionHelper.IsLoggedIn(this, context))
+				{
+                    List<Feedback> _RelatedFeedbacks = context.Feedbacks.Where(f => f.ProductId == id).ToList();
+                    ViewBag.Rate_count = 22;
+                    ViewBag.RelatedFeedbacks = _RelatedFeedbacks;
+                    ViewBag.FeedbackToAdd = new Feedback();
 
-				return View(prd);
-            }
-            return RedirectToAction("NotFound", id);
-        }
+                    ViewBag.Id = user.Id;
+                    return View("Detail", prd);
+                }
+                else
+                {
+                    return View(HomeController.LoggedInView);
+                }    
+                
+			}
+			return RedirectToAction("NotFound", id);
+		} 
 
-        public IActionResult Add()
+		[HttpPost]
+		public IActionResult AddFeedback(Feedback feedback)
+		{
+			if (ModelState.IsValid)
+			{
+				context.Feedbacks.Add(feedback);
+				context.SaveChanges();
+				return RedirectToAction("Detail", new { id = feedback.ProductId });
+			}
+			if (!ModelState.IsValid)
+			{
+				// Log or inspect the validation errors     
+				var errors = ModelState.Values.SelectMany(v => v.Errors);
+				foreach (var error in errors)
+				{
+					_logger.LogError(error.ErrorMessage);
+				}
+			}
+			return View("Details", feedback.ProductId);
+		}
+		public IActionResult Add()
         {
 			if (!SessionHelper.IsLoggedIn(this, context, true))
 				return View(HomeController.UnauthorizedView);
