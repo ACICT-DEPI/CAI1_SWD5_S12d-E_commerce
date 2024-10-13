@@ -16,10 +16,14 @@ namespace E_Commerce___DEPI.Controllers
 			context = _context;
 			_logger = logger;
 		}
-        public IActionResult AddToCart(int userId, int productId)
+        public IActionResult AddToCart(int productId)
         {
-            var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == userId);
-            var selectedProduct = context.Products.FirstOrDefault(c => c.Id == userId);
+			User? user = SessionHelper.GetUser(this, context);
+			if (user == null)
+				return View(HomeController.LoggedInView);
+
+			var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == user.Id);
+            var selectedProduct = context.Products.FirstOrDefault(c => c.Id == user.Id);
             CartItem cartItem = new CartItem
             {
                 Customer = selectedCustomer,
@@ -29,23 +33,25 @@ namespace E_Commerce___DEPI.Controllers
             };
             context.CartItems.Add(cartItem);
             context.SaveChanges();
-            return RedirectToAction("Cart", new { customerId = userId});
+            return RedirectToAction("Cart", new { customerId = user.Id });
 
         }
-        public IActionResult Cart(int customerId)
+        public IActionResult Cart()
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
+            User? user = SessionHelper.GetUser(this, context);
+			if (user == null)
 				return View(HomeController.LoggedInView);
 
-			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
+			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == user.Id).ToList();
             ViewData["cartItems"] = cartItems;
-            ViewData["customerId"] = customerId;
+            ViewData["customerId"] = user.Id;
             return View();
         }
 
-        public IActionResult DeleteCartItem(int cartItemId, int customerId)
+        public IActionResult DeleteCartItem(int cartItemId)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
+			User? user = SessionHelper.GetUser(this, context);
+			if (user == null)
 				return View(HomeController.LoggedInView);
 
 			// Retrieve the cart item by cartItemId
@@ -61,7 +67,7 @@ namespace E_Commerce___DEPI.Controllers
             }
 
             // Redirect back to the Cart action with the customerId as a parameter
-            return RedirectToAction("Cart", new { customerId = customerId });
+            return RedirectToAction("Cart", new { customerId = user.Id });
         }
 
         public IActionResult IncreaseItemQuantity(int cartItemId, int customerId)
@@ -84,9 +90,10 @@ namespace E_Commerce___DEPI.Controllers
             return RedirectToAction("Cart", new { customerId = customerId });
         }
 
-        public IActionResult DecreaseItemQuantity(int cartItemId, int customerId)
+        public IActionResult DecreaseItemQuantity(int cartItemId)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
+			User? user = SessionHelper.GetUser(this, context);
+			if (user == null)
 				return View(HomeController.LoggedInView);
 
 			// Retrieve the cart item by cartItemId
@@ -102,27 +109,28 @@ namespace E_Commerce___DEPI.Controllers
                 if (cartItem.Quantity == 0)
                 {
                     // Redirect back to the DeleteCartItem action with the customerId as a parameter
-                    return RedirectToAction("DeleteCartItem", new { customerId = customerId, cartItemId = cartItemId });
+                    return RedirectToAction("DeleteCartItem", new { customerId = user.Id, cartItemId = cartItemId });
                 }
                 else
                 {
                     // Redirect back to the Cart action with the customerId as a parameter
-                    return RedirectToAction("Cart", new { customerId = customerId });
+                    return RedirectToAction("Cart", new { customerId = user.Id });
                 }
             }
-            return RedirectToAction("Cart", new { customerId = customerId });
+            return RedirectToAction("Cart", new { customerId = user.Id });
 
         }
 
-        public IActionResult Checkout(int customerId)
+        public IActionResult Checkout()
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
+			User? user = SessionHelper.GetUser(this, context);
+			if (user == null)
 				return View(HomeController.LoggedInView);
 
-			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
+			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == user.Id).ToList();
             List<ShippmentCity> shippmentCities = context.ShippmentCities.ToList();
             ViewData["shippmentCities"] = shippmentCities;
-            ViewData["customerId"] = customerId;
+            ViewData["customerId"] = user.Id;
             double subTotal = 0;
             foreach (var item in cartItems)
             {

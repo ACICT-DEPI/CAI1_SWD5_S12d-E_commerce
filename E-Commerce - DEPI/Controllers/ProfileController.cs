@@ -43,14 +43,15 @@ namespace E_Commerce___DEPI.Controllers
             }
             return View(model);
         }
-        public IActionResult ShowProfile(int id) 
+        public IActionResult ShowProfile() 
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
+			var customer = SessionHelper.GetUser(this, context);
+			if (customer == null)
 				return View(HomeController.LoggedInView);
 
-			var customer= context.Customers.Find(id);
-            ViewBag.CustomerId = id;
-            ViewData["customer"] = customer;
+            
+            ViewBag.CustomerId = customer.Id;
+            ViewData["customer"] = (Customer)customer;
             return View(customer);
         }
     }

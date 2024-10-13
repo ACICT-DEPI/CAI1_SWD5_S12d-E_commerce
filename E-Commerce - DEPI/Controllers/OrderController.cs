@@ -288,12 +288,13 @@ namespace E_Commerce___DEPI.Controllers
             }
                 return RedirectToAction("ListArchivedOrders");
         }
-        public IActionResult CustomerOrders(int id)
+        public IActionResult CustomerOrders()
         {
-            if (!SessionHelper.IsLoggedIn(this, context))
+            User? user = SessionHelper.GetUser(this, context);
+            if (user == null)
                 return View(HomeController.LoggedInView);
 
-            IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
+            IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == user.Id);
             //var orderArchives= context.OrderArchives.Where(o=>o.Order.CustomerId == id);
             //ViewBag.orders = orders;
             //ViewBag.orderArchives = orderArchives;

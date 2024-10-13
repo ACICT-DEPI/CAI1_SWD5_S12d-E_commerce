@@ -41,7 +41,19 @@
 					<li><a class="nav-link" asp-controller="Home" asp-action="index">Home</a></li>
 					<li><a class="nav-link">Sales</a></li>
 					<li><a class="nav-link" asp-controller="Product" asp-action="Index">Products</a></li>
-					<li><a class="nav-link" href="">Catalog</a></li>
+
+					@if (user != null)
+					{
+						if (!user.IsAdmin)
+						{
+							<li><a class="nav-link" asp-controller="Order" asp-action="CustomerOrders">Orders</a></li>
+						}
+						else
+						{
+							<li><a class="nav-link" asp-controller="Order" asp-action="ListOrder">Orders</a></li>
+						}
+					}
+
 					<li><a class="nav-link" asp-action="About" asp-controller="Home">About Us</a></li>
 					<li>
 						<form method="post" class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Home" asp-route-searchQuery="">
@@ -75,15 +87,18 @@
 							}
 							else
 							{
-								<a class="text-primary fs-6 fw-bold" asp-controller="Profile" asp-action="ShowProfile" asp-route-id="@user.Id">My Profile</a>
+								<a class="text-primary fs-6 fw-bold" asp-controller="Profile" asp-action="ShowProfile">My Profile</a>
 								<a class="text-primary fs-6 fw-bold" asp-controller="Home" asp-action="Logout">Logout</a>
 							}
 						</div>
 					</div>
 
-					<ul class="nav-link custom-navbar-cta">
-						<li style="list-style:none ;"><a class="nav-link" href="cart.html"><img src="/images/cart.svg"></a></li>
-					</ul>
+					@if (user != null && !user.IsAdmin)
+					{
+						<ul class="nav-link custom-navbar-cta">
+							<li style="list-style:none ;"><a class="nav-link" asp-controller="Customer" asp-action="Cart"><img src="/images/cart.svg"></a></li>
+						</ul>
+					}
 				</div>
 			</div>
 		</div>

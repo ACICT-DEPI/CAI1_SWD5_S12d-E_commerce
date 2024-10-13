@@ -69,18 +69,18 @@
                                                         </div>
                                                         <div class="d-flex flex-row align-items-center">
                                                             <div style="width: 50px;">
-                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="DecreaseItemQuantity" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]">-</a></h5>
+                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="DecreaseItemQuantity" asp-route-cartItemId="@item.Id">-</a></h5>
                                                             </div>
                                                             <div style="width: 50px;">
                                                                 <h5 class="fw-normal mb-0">@item.Quantity</h5>
                                                             </div>
                                                             <div style="width: 50px;">
-                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="IncreaseItemQuantity" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]">+</a></h5>
+                                                                <h5 class="fw-normal mb-0"><a asp-controller="Customer" asp-action="IncreaseItemQuantity" asp-route-cartItemId="@item.Id">+</a></h5>
                                                             </div>
                                                             <div style="width: 80px;">
                                                                 <h5 class="mb-0">$@(item.Product.Price * item.Quantity)</h5>
                                                             </div>
-                                                            <a asp-controller="Customer" asp-action="DeleteCartItem" asp-route-cartItemId="@item.Id" asp-route-customerId="@ViewData["customerId"]" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                            <a asp-controller="Customer" asp-action="DeleteCartItem" asp-route-cartItemId="@item.Id" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5" style="margin-top:30px; justify-content: end">
-                                    <a type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg" asp-action="Checkout" asp-controller="Customer" asp-route-customerId="@ViewData["customerId"]">
+                                    <a type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg" asp-action="Checkout" asp-controller="Customer">
                                         <div class="d-flex">
                                             <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                         </div>
