@@ -48,6 +48,7 @@
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<li><a class="nav-link" asp-controller="Home" asp-action="index">Home</a></li>
 					<li ><a class="nav-link" >Sales</a></li>
+					<li><a class="nav-link" asp-controller="Product" asp-action="Index">Products</a></li>
 					<li><a class="nav-link" href="">Catalog</a></li>
 					<li><a class="nav-link" asp-action="About" asp-controller="Home">About Us</a></li>
 					<li>
@@ -82,13 +83,14 @@
 							}
 							else
 							{
+								<a class="text-primary fs-6 fw-bold" asp-controller="Profile" asp-action="ShowProfile" asp-route-id="@user.Id">My Profile</a>
 								<a class="text-primary fs-6 fw-bold" asp-controller="Home" asp-action="Logout">Logout</a>
 							}
 						</div>
 					</div>
 
 					<ul class="nav-link custom-navbar-cta">
-						<li><a class="nav-link" href="cart.html"><img src="/images/cart.svg"></a></li>
+						<li style="list-style:none ;"><a class="nav-link" href="cart.html"><img src="/images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>

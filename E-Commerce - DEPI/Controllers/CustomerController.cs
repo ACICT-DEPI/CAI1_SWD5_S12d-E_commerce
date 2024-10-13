@@ -1,15 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using E_Commerce___DEPI.Models;
 using E_Commerce___DEPI.Session;
+using GP.Controllers;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce___DEPI.Controllers
 {
     public class CustomerController : Controller
     {
-        DbIntities context = new DbIntities();
-        public IActionResult Cart(int customerId)
+		DbIntities context;
+		private readonly ILogger<CustomerController> _logger;
+
+		public CustomerController(DbIntities _context, ILogger<CustomerController> logger)
+		{
+			context = _context;
+			_logger = logger;
+		}
+
+		public IActionResult Cart(int customerId)
         {
-            List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
             ViewData["cartItems"] = cartItems;
             ViewData["customerId"] = customerId;
             return View();
@@ -17,8 +30,11 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult DeleteCartItem(int cartItemId, int customerId)
         {
-            // Retrieve the cart item by cartItemId
-            var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			// Retrieve the cart item by cartItemId
+			var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
 
             if (cartItem != null)
             {
@@ -35,8 +51,11 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult IncreaseItemQuantity(int cartItemId, int customerId)
         {
-            // Retrieve the cart item by cartItemId
-            var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			// Retrieve the cart item by cartItemId
+			var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
 
             if (cartItem != null)
             {
@@ -52,8 +71,11 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult DecreaseItemQuantity(int cartItemId, int customerId)
         {
-            // Retrieve the cart item by cartItemId
-            var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			// Retrieve the cart item by cartItemId
+			var cartItem = context.CartItems.SingleOrDefault(x => x.Id == cartItemId);
 
             if (cartItem != null)
             {
@@ -79,7 +101,10 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult Checkout(int customerId)
         {
-            List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			List<CartItem> cartItems = context.CartItems.Where(x => x.Customer.Id == customerId).ToList();
             List<ShippmentCity> shippmentCities = context.ShippmentCities.ToList();
             ViewData["shippmentCities"] = shippmentCities;
             ViewData["customerId"] = customerId;
@@ -94,7 +119,10 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult SubmitCheckout(Address address, int subtotal)
         {
-            var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
             var selectedCustomer = SessionHelper.GetUser(this, context);
 
             // get the cart items to fill the order items
@@ -142,7 +170,10 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult viewCustomerProfile(int id )
         {
-            var customer = context.Customers.FirstOrDefault(x => x.Id == id);
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(HomeController.LoggedInView);
+
+			var customer = context.Customers.FirstOrDefault(x => x.Id == id);
             return View(customer);
         }  
     }
