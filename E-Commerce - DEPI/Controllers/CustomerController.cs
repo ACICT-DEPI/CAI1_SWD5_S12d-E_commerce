@@ -139,5 +139,11 @@ namespace E_Commerce___DEPI.Controllers
             // Redirect to the Cart action in the desired controller
             return RedirectToAction("Index", "Home", new { page = 1, categoryPage = 1 });
         }
+
+        public IActionResult viewCustomerProfile(int id )
+        {
+            var customer = context.Customers.FirstOrDefault(x => x.Id == id);
+            return View(customer);
+        }  
     }
 }
