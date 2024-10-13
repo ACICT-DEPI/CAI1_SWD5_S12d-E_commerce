@@ -8,6 +8,8 @@ namespace E_Commerce___DEPI.Models
         public int Id { get; set; }
         public virtual OrderState? Status { get; set; }
         public DateTime Date { get; set; }
+
+        public int? total { get; set; }
         public int? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customer? Customer { get; set; }

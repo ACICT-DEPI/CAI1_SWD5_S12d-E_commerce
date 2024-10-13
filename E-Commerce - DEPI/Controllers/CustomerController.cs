@@ -91,16 +91,48 @@ namespace E_Commerce___DEPI.Controllers
             return View();
         }
 
-        public IActionResult SubmitCheckout(Address address)
+        public IActionResult SubmitCheckout(Address address, int subtotal)
         {
             var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
             var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == address.CustomerId);
+            // get the cart items to fill the order items
+            var cartItems = context.CartItems.Where(ci=>ci.Customer == selectedCustomer).ToList();
 
-            if (selectedCity != null && selectedCustomer !=null)
+            if (selectedCity != null && selectedCustomer != null && cartItems != null && cartItems.Any())
             {
+                // Save The Address
                 address.ShippmentCities = selectedCity;
                 address.Customer = selectedCustomer;
                 context.Addresses.Add(address);
+                
+                // Save The Order
+                var order = new Order
+                {
+                    CustomerId = selectedCustomer.Id,
+                    Address = address,
+                    Status = E_Commerce___DEPI.Models.OrderState.Pending,
+                    Date= DateTime.Now,
+                    total= subtotal + selectedCity.ShppmentFee
+                };
+                context.Orders.Add(order);
+                
+
+                // Save The Address Items
+                var orderedItems = new List<OrderdItem>();
+                foreach (var item in cartItems)
+                {
+                    OrderdItem orderdItem = new OrderdItem
+                    {
+                        Amount = item.Quantity,
+                        Order = order,
+                        Product = item.Product
+                    };
+                    orderedItems.Add(orderdItem);
+                };
+                context.OrderdItems.AddRange(orderedItems);
+                // Remove the cart items from the database
+                context.CartItems.RemoveRange(cartItems);
+                // Commit everything to the database
                 context.SaveChanges();
             }
             // Redirect to the Cart action in the desired controller
