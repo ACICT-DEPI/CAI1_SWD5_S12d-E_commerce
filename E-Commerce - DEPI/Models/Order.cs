@@ -16,6 +16,7 @@ namespace E_Commerce___DEPI.Models
         [ForeignKey("AddressId")]
         public virtual Address? Address { get; set; }
         //public virtual List<OrderedItemsArchive>? OrderedItemsArchives { get; set; }
-        public virtual List<OrderdItem>? OrderdItems { get; set; }
+        public virtual ICollection<OrderdItem>? OrderdItems { get; set; }
+        public virtual ICollection<OrderArchive>? OrderArchives { get; set; }
     }
 }

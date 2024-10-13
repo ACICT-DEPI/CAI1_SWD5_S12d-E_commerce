@@ -1,5 +1,6 @@
 ﻿using E_Commerce___DEPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce___DEPI.Controllers
 {
@@ -11,6 +12,56 @@ namespace E_Commerce___DEPI.Controllers
             List<Order> orders = context.Orders.ToList();
             ViewData["orders"] = orders;
             return View();
+        }
+
+        public IActionResult ListArchivedOrders()
+        {
+            // Get today's date
+            DateTime currentDate = DateTime.Now;
+
+            // Find orders archived more than 14 days ago
+            var ordersToDelete = context.OrderArchives
+                                        .Where(oa => oa.ArchiveDate < currentDate.AddDays(-14))
+                                        .ToList();
+
+            if (ordersToDelete.Any())
+            {
+                // First, delete the archived orders from the OrdersArchive table
+                context.OrderArchives.RemoveRange(ordersToDelete);
+                context.SaveChanges(); // Save changes after removing the archived orders
+
+                // Get the IDs of the related orders to delete from the Orders table
+                var relatedOrderIdsToDelete = ordersToDelete.Select(oa => oa.OrderId).ToList();
+
+                // Find the related orders along with their order items
+                var relatedOrdersToDelete = context.Orders
+                                                    .Include(o => o.OrderdItems) // Load order items
+                                                    .Where(o => relatedOrderIdsToDelete.Contains(o.Id))
+                                                    .ToList();
+
+                // Delete the order items related to the orders
+                foreach (var order in relatedOrdersToDelete)
+                {
+                    if (order.OrderdItems != null && order.OrderdItems.Any())
+                    {
+                        context.OrderdItems.RemoveRange(order.OrderdItems); // Remove all items related to the order
+                    }
+                }
+
+                // Now delete the related orders
+                context.Orders.RemoveRange(relatedOrdersToDelete);
+                context.SaveChanges(); // Persist the changes to delete the original orders and their items
+            }
+
+            // Get remaining orders that are not older than 14 days
+            List<OrderArchive> remainingArchivedOrders = context.OrderArchives
+                                                                 .Where(oa => oa.ArchiveDate >= currentDate.AddDays(-14))
+                                                                 .ToList();
+
+            ViewData["archivedOrders"] = remainingArchivedOrders;
+
+            // Pass the remaining orders to the view
+            return View(remainingArchivedOrders);
         }
 
         public IActionResult OrderDetails(int orderId)
@@ -41,7 +92,8 @@ namespace E_Commerce___DEPI.Controllers
                     // Create a new OrdersArchive instance
                     var OrderArchives = new OrderArchive
                     {
-                        Order = order
+                        Order = order,
+                        ArchiveDate = DateTime.Today
                     };
 
                     // Add the OrdersArchive entry to the database
@@ -52,6 +104,12 @@ namespace E_Commerce___DEPI.Controllers
                 // Check if the status is Canceled
                 if (newOrderState == E_Commerce___DEPI.Models.OrderState.Canceled)
                 {
+                    // remove the related order items
+                    if (order.OrderdItems != null && order.OrderdItems.Any())
+                    {
+                        // Delete the related order items
+                        context.OrderdItems.RemoveRange(order.OrderdItems); // Remove all items related to the order
+                    }
                     // Remove the order from the database
                     context.Orders.Remove(order);
                     ViewData["isOrderDeleted"] = true;
@@ -61,11 +119,31 @@ namespace E_Commerce___DEPI.Controllers
                 context.SaveChanges();
             }
 
-            List<Order> orders = context.Orders.ToList();
-            ViewData["orders"] = orders;
-
-            // Redirect back to the list or the same page
             return RedirectToAction("ListOrder");
+        }
+
+        public IActionResult DeleteArchivedOrder(int orderId)
+        {
+            var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
+            if (arrchivedOrder != null)
+            {
+                // Get the related order from the orders database
+                var relatedOrder = context.Orders.FirstOrDefault(o => o.Id == arrchivedOrder.OrderId);
+                if (relatedOrder != null) {
+                    // Get the related order items from the items database
+                    if (relatedOrder.OrderdItems != null && relatedOrder.OrderdItems.Any())
+                    {
+                        // Delete the related order items
+                        context.OrderdItems.RemoveRange(relatedOrder.OrderdItems); // Remove all items related to the order
+                    }
+                    context.Orders.Remove(relatedOrder);
+                }
+                // Remove the order from the database
+                context.OrderArchives.Remove(arrchivedOrder);
+                context.SaveChanges();
+
+            }
+                return RedirectToAction("ListArchivedOrders");
         }
 
     }
