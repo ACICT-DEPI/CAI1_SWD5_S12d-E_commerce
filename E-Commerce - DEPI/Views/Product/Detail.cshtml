@@ -31,49 +31,52 @@
 				<input type="text" asp-for="Description" class="form-control" readonly>
 			</div>
 
-			<div class="mb-3 ms-3">
-				<label asp-for="img1"></label>
-				<input type="text" asp-for="img1" class="form-control" readonly>
-			</div>
-
-			@if (Model.img2 != null)
+			@if (ViewBag.IsAdmin)
 			{
 				<div class="mb-3 ms-3">
-					<label asp-for="img2"></label>
-					<input type="text" asp-for="img2" class="form-control" readonly>
+					<label asp-for="img1"></label>
+					<input type="text" asp-for="img1" class="form-control" readonly>
 				</div>
-			}
 
-			@if (Model.img3 != null)
-			{
-				<div class="mb-3 ms-3">
-					<label asp-for="img3"></label>
-					<input type="text" asp-for="img3" class="form-control" readonly>
-				</div>
-			}
+				@if (Model.img2 != null)
+				{
+					<div class="mb-3 ms-3">
+						<label asp-for="img2"></label>
+						<input type="text" asp-for="img2" class="form-control" readonly>
+					</div>
+				}
 
-			@if (Model.img4 != null)
-			{
-				<div class="mb-3 ms-3">
-					<label asp-for="img4"></label>
-					<input type="text" asp-for="img4" class="form-control" readonly>
-				</div>
-			}
+				@if (Model.img3 != null)
+				{
+					<div class="mb-3 ms-3">
+						<label asp-for="img3"></label>
+						<input type="text" asp-for="img3" class="form-control" readonly>
+					</div>
+				}
 
-			@if (Model.img5 != null)
-			{
-				<div class="mb-3 ms-3">
-					<label asp-for="img5"></label>
-					<input type="text" asp-for="img5" class="form-control" readonly>
-				</div>
-			}
+				@if (Model.img4 != null)
+				{
+					<div class="mb-3 ms-3">
+						<label asp-for="img4"></label>
+						<input type="text" asp-for="img4" class="form-control" readonly>
+					</div>
+				}
 
-			@if (Model.img6 != null)
-			{
-				<div class="mb-3 ms-3">
-					<label asp-for="img6"></label>
-					<input type="text" asp-for="img6" class="form-control" readonly>
-				</div>
+				@if (Model.img5 != null)
+				{
+					<div class="mb-3 ms-3">
+						<label asp-for="img5"></label>
+						<input type="text" asp-for="img5" class="form-control" readonly>
+					</div>
+				}
+
+				@if (Model.img6 != null)
+				{
+					<div class="mb-3 ms-3">
+						<label asp-for="img6"></label>
+						<input type="text" asp-for="img6" class="form-control" readonly>
+					</div>
+				}
 			}
 
 			<div class="mb-3 ms-3">
