@@ -11,7 +11,6 @@ namespace E_Commerce___DEPI.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Admin> Admins { get; set; }
         public DbSet<FrameMat> FrameMats { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<CartItem> CartItems { get; set; }

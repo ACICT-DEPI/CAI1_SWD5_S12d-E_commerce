@@ -142,5 +142,15 @@ namespace GP.Controllers
 			return View();
 		}
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+		public IActionResult Register()
+		{
+			return View();
+		}
 	}
 }
