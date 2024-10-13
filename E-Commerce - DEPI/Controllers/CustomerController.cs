@@ -16,8 +16,23 @@ namespace E_Commerce___DEPI.Controllers
 			context = _context;
 			_logger = logger;
 		}
+        public IActionResult AddToCart(int userId, int productId)
+        {
+            var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == userId);
+            var selectedProduct = context.Products.FirstOrDefault(c => c.Id == userId);
+            CartItem cartItem = new CartItem
+            {
+                Customer = selectedCustomer,
+                Product = selectedProduct,
+                Quantity = 1
 
-		public IActionResult Cart(int customerId)
+            };
+            context.CartItems.Add(cartItem);
+            context.SaveChanges();
+            return RedirectToAction("Cart", new { customerId = userId});
+
+        }
+        public IActionResult Cart(int customerId)
         {
 			if (!SessionHelper.IsLoggedIn(this, context))
 				return View(HomeController.LoggedInView);
