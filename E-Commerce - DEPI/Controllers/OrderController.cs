@@ -1,29 +1,16 @@
 ﻿using E_Commerce___DEPI.Models;
-using E_Commerce___DEPI.Session;
-using GP.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace E_Commerce___DEPI.Controllers
 {
     public class OrderController : Controller
     {
-        DbIntities context;
-		private readonly ILogger<OrderController> _logger;
-		private const int PageSize = 10; // Number of items per page
-
-		public OrderController(DbIntities _context, ILogger<OrderController> logger)
-		{
-			context = _context;
-			_logger = logger;
-		}
-
-		public IActionResult ListOrder(string sortOrder)
+        DbIntities context = new DbIntities();
+        public IActionResult ListOrder(string sortOrder)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			List<Order> orders = context.Orders.ToList();
+            List<Order> orders = context.Orders.ToList();
             // Sorting logic
             if (sortOrder != null)
             {
@@ -42,13 +29,10 @@ namespace E_Commerce___DEPI.Controllers
             return View();
         }
 
-        public IActionResult ListArchivedOrders()
+        public IActionResult ListArchivedOrders(string sortOrder, string searchTerm)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			// Get today's date
-			DateTime currentDate = DateTime.Now;
+            // Get today's date
+            DateTime currentDate = DateTime.Now;
 
             // Find orders archived more than 14 days ago
             var ordersToDelete = context.OrderArchives
@@ -89,6 +73,26 @@ namespace E_Commerce___DEPI.Controllers
                                                                  .Where(oa => oa.ArchiveDate >= currentDate.AddDays(-14))
                                                                  .ToList();
 
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                remainingArchivedOrders = remainingArchivedOrders.Where(oa =>
+                    (oa.Order.Customer.Fname + " " + oa.Order.Customer.Lname).Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Sorting logic
+            if (sortOrder != null)
+            {
+                switch (sortOrder)
+                {
+                    case "date_desc":
+                        remainingArchivedOrders = remainingArchivedOrders.OrderByDescending(o => o.ArchiveDate).ToList();
+                        break;
+                    default:
+                        remainingArchivedOrders = remainingArchivedOrders.OrderBy(o => o.ArchiveDate).ToList();
+                        break;
+                }
+            }
             ViewData["archivedOrders"] = remainingArchivedOrders;
 
             // Pass the remaining orders to the view
@@ -97,23 +101,18 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult OrderDetails(int orderId)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+            Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
             ViewData["order"] = order;
             return View();
         }
 
         [HttpPost]
 
-        public IActionResult ChangeOrderStatus(int orderId, int orderState, bool isList)
+        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			// Fetch the order based on the ID
-			var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+            bool isListBool = isList == "true";
+            // Fetch the order based on the ID
+            var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
             if (order != null)
             {
@@ -155,7 +154,7 @@ namespace E_Commerce___DEPI.Controllers
                 // Save the changes to the database
                 context.SaveChanges();
             }
-            if (isList)
+            if (isListBool == true)
             {
                 return RedirectToAction("ListOrder");
             }
@@ -168,10 +167,7 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult DeleteArchivedOrder(int orderId)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
+            var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
             if (arrchivedOrder != null)
             {
                 // Get the related order from the orders database
@@ -194,10 +190,7 @@ namespace E_Commerce___DEPI.Controllers
         }
         public IActionResult CustomerOrders(int id)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
-
-			IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
+            IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
             //var orderArchives= context.OrderArchives.Where(o=>o.Order.CustomerId == id);
             //ViewBag.orders = orders;
             //ViewBag.orderArchives = orderArchives;
@@ -205,11 +198,6 @@ namespace E_Commerce___DEPI.Controllers
             return View(orders);
         }
 
-        //public IActionResult ListOrdersDescending()
-        //{
-
-        //    return View("ListOrder");
-        //}
 
     }
 }
