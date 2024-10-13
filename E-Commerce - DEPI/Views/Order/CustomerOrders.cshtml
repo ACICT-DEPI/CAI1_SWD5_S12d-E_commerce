@@ -1,18 +1,28 @@
-﻿@{
-    ViewData["Title"] = "CustomerOrders";
-}
+﻿@model IQueryable<Order>  // Accept IQueryable<Order>
 
-@foreach(var order in Model)
-{
-    <div class="card">
+    @{
+        var orders = Model.ToList(); // Convert to List in the view
+        ViewData["Title"] = "CustomerOrders";
+    }
 
-        <div class="card-body">
-            <h5 class="card-title"><strong>ID:</strong> #@order.Id</h5>
-            <h5 class="card-title"><strong>Status:</strong> @order.Status</h5>
-            <h5 class="card-title"><strong>Date:</strong> @order.Date</h5>
-            
-            <h5 class="card-title"><strong>Total:</strong> @order.total</h5>
-            <a href="#" class="btn btn-secondary">Show Details</a>
-        </div>
-    </div>
-}
+    @if (!orders.Any()) // You can now safely use Any() or Count()
+    {
+            <div class="alert alert-secondary" role="alert">
+                No Orders!
+            </div>
+    }
+    else
+    {
+        @foreach (var order in orders)
+        {
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>ID:</strong> #@order.Id</h5>
+                        <h5 class="card-title"><strong>Status:</strong> @order.Status</h5>
+                        <h5 class="card-title"><strong>Date:</strong> @order.Date</h5>
+                        <h5 class="card-title"><strong>Total:</strong> @order.total</h5>
+                        <a asp-controller="Order" asp-action="OrderDetails" asp-route-orderId="@order.Id" class="btn btn-primary">Show Details</a>
+                    </div>
+                </div>
+        }
+    }
