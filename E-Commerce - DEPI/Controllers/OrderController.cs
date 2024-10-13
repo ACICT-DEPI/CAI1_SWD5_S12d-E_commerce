@@ -8,9 +8,17 @@ namespace E_Commerce___DEPI.Controllers
     public class OrderController : Controller
     {
         DbIntities context = new DbIntities();
-        public IActionResult ListOrder(string sortOrder)
+        public IActionResult ListOrder(string sortOrder, string searchTerm)
         {
             List<Order> orders = context.Orders.ToList();
+
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                orders = orders.Where(oa =>
+                    (oa.Customer.Fname + " " + oa.Customer.Lname).Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
             // Sorting logic
             if (sortOrder != null)
             {

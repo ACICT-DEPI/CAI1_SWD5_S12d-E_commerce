@@ -31,7 +31,7 @@ namespace E_Commerce___DEPI.Controllers
         {
             var customer= _context.Customers.Find(id);
             ViewBag.CustomerId = id;
-
+            ViewData["customer"] = customer;
             return View(customer);
         }
     }
