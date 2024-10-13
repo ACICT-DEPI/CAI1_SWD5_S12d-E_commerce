@@ -1,14 +1,12 @@
-﻿using Castle.Core.Resource;
-using E_Commerce___DEPI.Models;
+﻿using E_Commerce___DEPI.Models;
 using E_Commerce___DEPI.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GP.Controllers
 {
-    public class ProductController : Controller
+	public class ProductController : Controller
     {
         DbIntities context;
         private readonly ILogger<ProductController> _logger;
@@ -49,32 +47,32 @@ namespace GP.Controllers
         {
             return View(id);
         }
-
-		public IActionResult Detail(int id)
-		{
-			Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
-			if (prd != null)
-			{
-                User? user = SessionHelper.GetUser(this, context);
-
-                if ((user!= null) &&  SessionHelper.IsLoggedIn(this, context))
-				{
-                    List<Feedback> _RelatedFeedbacks = context.Feedbacks.Where(f => f.ProductId == id).ToList();
-                    ViewBag.Rate_count = 22;
-                    ViewBag.RelatedFeedbacks = _RelatedFeedbacks;
-                    ViewBag.FeedbackToAdd = new Feedback();
-
-                    ViewBag.Id = user.Id;
-                    return View("Detail", prd);
-                }
-                else
+           public IActionResult Detail(int id)
+            {
+                Product? prd = context.Products.FirstOrDefault(x => x.Id == id);
+                if (prd != null)
                 {
-                    return View(HomeController.LoggedInView);
-                }    
-                
-			}
-			return RedirectToAction("NotFound", id);
-		} 
+                    User? user = SessionHelper.GetUser(this, context);
+
+                    if ((user != null) && SessionHelper.IsLoggedIn(this, context))
+                    {
+                        List<Feedback> _RelatedFeedbacks = context.Feedbacks.Where(f => f.ProductId == id).ToList();
+                        ViewBag.Rate_count = 22;
+                        ViewBag.RelatedFeedbacks = _RelatedFeedbacks;
+                        ViewBag.FeedbackToAdd = new Feedback();
+
+                        ViewBag.Id = user.Id;
+                        return View("Detail", prd);
+                    }
+                    else
+                    {
+                        return View(HomeController.LoggedInView);
+                    }
+
+                }
+                return RedirectToAction("NotFound", id);
+            }
+       
 
 		[HttpPost]
 		public IActionResult AddFeedback(Feedback feedback)

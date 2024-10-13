@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DbIntities>(options => options
 .UseLazyLoadingProxies()
-.UseSqlServer("Data Source=188.165.47.6,49778; Initial Catalog=GP_Database; User ID=depi; Password=123456qweQWE; TrustServerCertificate=True;")
+.UseSqlServer("Data Source=188.165.47.6,49778; Initial Catalog=GP_Database; User ID=depi; Password=123456qweQWE; TrustServerCertificate=True;MultipleActiveResultSets=True")
 );
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -29,9 +29,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 // Configure sessions
@@ -45,7 +45,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
