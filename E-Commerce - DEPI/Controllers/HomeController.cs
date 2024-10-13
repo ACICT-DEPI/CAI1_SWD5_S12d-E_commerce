@@ -1,14 +1,25 @@
+using Castle.Core.Resource;
 using E_Commerce___DEPI.Models;
+using E_Commerce___DEPI.Session;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 
 namespace GP.Controllers
 {
     public class HomeController : Controller
     {
-        DbIntities context = new DbIntities();
+		public const string LoggedInView = "LoginRequired",
+							LoggedOutView = "LogoutRequired",
+							UnauthorizedView = "Unauthorized";
+
+		DbIntities context = new DbIntities();
         private readonly ILogger<HomeController> _logger;
         private const int PageSize = 10; // Number of items per page
 
@@ -144,13 +155,83 @@ namespace GP.Controllers
 
         public IActionResult Login()
         {
+            if (SessionHelper.IsLoggedIn(this, context))
+                return View(LoggedOutView);
             return View();
         }
 
         [HttpPost]
+		public IActionResult PostLogin(Customer info)
+		{
+			if (SessionHelper.IsLoggedIn(this, context))
+				return View(LoggedOutView);
+
+			else if (!string.IsNullOrEmpty(info.Password) && !Regex.IsMatch(info.Password.ToLower(), "^[a-zA-Z0-9]*$"))
+				ModelState.AddModelError("Password", "Password must contain only alphanumeric characters.");
+
+			if (ModelState.GetValidationState("Email") == ModelValidationState.Valid &&
+				ModelState.GetValidationState("Password") == ModelValidationState.Valid)
+			{
+				Customer? user = context.Customers
+				.Where(x =>
+								x.Email.ToLower() == info.Email.ToLower() &&
+								x.Password.ToLower() == info.Password
+						  )
+					.FirstOrDefault();
+
+                if (user != null)
+                {
+                    SessionHelper.SetUser(this, user);
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError(string.Empty, "Email address or password was incorrect, please try again.");
+			}
+			return View("Login");
+		}
+
 		public IActionResult Register()
 		{
+			if (SessionHelper.IsLoggedIn(this, context))
+				return View(LoggedOutView);
 			return View();
+		}
+
+		[HttpPost]
+		public IActionResult PostRegister(Customer customer, string pwconfirm)
+		{
+			if (SessionHelper.IsLoggedIn(this, context))
+				return View(LoggedOutView);
+
+			else if (!string.IsNullOrEmpty(customer.Password) && !Regex.IsMatch(customer.Password.ToLower(), "^[a-zA-Z0-9]*$"))
+				ModelState.AddModelError("Password", "Password must contain only alphanumeric characters.");
+
+			else if (string.IsNullOrEmpty(pwconfirm) || (!string.IsNullOrEmpty(customer.Password) && customer.Password != pwconfirm))
+				ModelState.AddModelError(string.Empty, "Please confirm your password correctly.");
+
+			if (ModelState.IsValid)
+			{
+				if (context.Customers.FirstOrDefault(x => x.Email.ToLower() == customer.Email.ToLower()) == null)
+				{
+					context.Customers.Add(customer);
+					context.SaveChanges();
+
+					SessionHelper.SetUser(this, customer);
+					return RedirectToAction("Index");
+				}
+				else
+					ModelState.AddModelError(string.Empty, "This email address is already in use.");
+			}
+			return View("Register");
+		}
+
+        public IActionResult Logout()
+        {
+			if (!SessionHelper.IsLoggedIn(this, context))
+				return View(LoggedInView);
+
+            SessionHelper.DeleteUser(this);
+			return RedirectToAction("Index");
 		}
 	}
 }

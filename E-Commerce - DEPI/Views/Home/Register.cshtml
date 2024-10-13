@@ -1,0 +1,82 @@
+﻿@{
+	ViewData["Title"] = "Registration";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Customer
+
+<h2 class="alert alert-info text-center mt-3">User Registration</h2>
+
+<div class="container">
+	<div class="row align-items-center">
+		<form method="post" class="ms-4 w-auto" asp-controller="Home" asp-action="PostRegister" enctype="multipart/form-data">
+
+			<div class="form-group">
+				<label asp-for="Fname"></label>
+				<input type="text" asp-for="Fname" class="form-control" aria-describedby="nameHelp" placeholder="Your first name">
+
+				<div class="row">
+					<small id="nameHelp" class="form-text text-muted">Can be your real name or username.</small>
+					<span asp-validation-for="Fname" class="form-text text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Lname"></label>
+				<input type="text" asp-for="Lname" class="form-control" aria-describedby="nameHelp" placeholder="Your second name">
+
+				<div class="row">
+					<small id="nameHelp" class="form-text text-muted">Can be your real name or username.</small>
+					<span asp-validation-for="Lname" class="form-text text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group pt-2">
+				<label asp-for="Email"></label>
+				<input type="email" asp-for="Email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+
+				<div class="row">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+					<span asp-validation-for="Email" class="form-text text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group pt-2">
+				<label>Password</label>
+				<input type="password" asp-for="Password" class="form-control" aria-describedby="passwordHelp" placeholder="••••••••••">
+
+				<div class="row">
+					<small id="passwordHelp" class="form-text text-muted">Pick a strong password and don't share it with others.</small>
+					<span asp-validation-for="Password" class="form-text text-danger"></span>
+				</div>
+			</div>
+
+			<div class="form-group pt-2">
+				<label>Confirm Password</label>
+				<input type="password" class="form-control" name="pwconfirm" id="pwconfirm" aria-describedby="passwordcHelp" placeholder="••••••••••">
+
+				<div class="row">
+					<small id="passwordcHelp" class="form-text text-muted">Type your password once again to confirm.</small>
+				</div>
+			</div>
+
+			<div class="form-group pt-2">
+				<label asp-for="Phone"></label>
+				<input type="text" asp-for="Phone" class="form-control" aria-describedby="phoneHelp" placeholder="Enter phone number">
+
+				<div class="row">
+					<small id="phoneHelp" class="form-text text-muted">Please enter a valid phone number.</small>
+					<span asp-validation-for="Phone" class="form-text text-danger"></span>
+				</div>
+			</div>
+
+			<div asp-validation-summary="ModelOnly" class="form-group text-danger pt-3"></div>
+
+			<div class="mt-2 mb-3">
+				<button type="submit" class="btn btn-primary">Register</button>
+				<a class="btn btn-success ms-1" asp-controller="Home" asp-action="Login">Login</a>
+			</div>
+
+		</form>
+	</div>
+</div>

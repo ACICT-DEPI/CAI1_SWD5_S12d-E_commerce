@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using E_Commerce___DEPI.Session;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_Commerce___DEPI.Models
 {
@@ -6,8 +7,9 @@ namespace E_Commerce___DEPI.Models
     {
         public DbIntities()
         {
-            
+            SessionHelper.SetDbContext(this);
         }
+
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -22,7 +24,7 @@ namespace E_Commerce___DEPI.Models
 
         public DbSet<ShippmentCity> ShippmentCities { get; set; }
 
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
@@ -34,6 +36,5 @@ namespace E_Commerce___DEPI.Models
         {
            
         }
-
     }
 }

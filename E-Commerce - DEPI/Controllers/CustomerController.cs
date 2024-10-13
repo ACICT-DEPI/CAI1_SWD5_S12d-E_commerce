@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using E_Commerce___DEPI.Models;
+using E_Commerce___DEPI.Session;
 
 namespace E_Commerce___DEPI.Controllers
 {
@@ -94,7 +95,8 @@ namespace E_Commerce___DEPI.Controllers
         public IActionResult SubmitCheckout(Address address, int subtotal)
         {
             var selectedCity = context.ShippmentCities.FirstOrDefault(c => c.Id == address.ShippmentCitiesId);
-            var selectedCustomer = context.Customers.FirstOrDefault(c => c.Id == address.CustomerId);
+            var selectedCustomer = SessionHelper.GetUser(this, context);
+
             // get the cart items to fill the order items
             var cartItems = context.CartItems.Where(ci=>ci.Customer == selectedCustomer).ToList();
 
@@ -102,7 +104,6 @@ namespace E_Commerce___DEPI.Controllers
             {
                 // Save The Address
                 address.ShippmentCities = selectedCity;
-                address.Customer = selectedCustomer;
                 context.Addresses.Add(address);
                 
                 // Save The Order
@@ -112,7 +113,7 @@ namespace E_Commerce___DEPI.Controllers
                     Address = address,
                     Status = E_Commerce___DEPI.Models.OrderState.Pending,
                     Date= DateTime.Now,
-                    total= subtotal + selectedCity.ShppmentFee
+                    total = subtotal + selectedCity.ShppmentFee
                 };
                 context.Orders.Add(order);
                 
