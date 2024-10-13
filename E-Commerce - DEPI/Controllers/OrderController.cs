@@ -21,8 +21,8 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult ListOrder(string sortOrder, string searchTerm)
         {
-            if (!SessionHelper.IsLoggedIn(this, context))
-                return View(HomeController.LoggedInView);
+            //if (!SessionHelper.IsLoggedIn(this, context))
+            //    return View(HomeController.LoggedInView);
 
             List<Order> orders = context.Orders.ToList();
 
@@ -53,8 +53,8 @@ namespace E_Commerce___DEPI.Controllers
 
         public IActionResult ListArchivedOrders(string sortOrder, string searchTerm)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
+			//if (!SessionHelper.IsLoggedIn(this, context))
+			//	return View(HomeController.LoggedInView);
 
 			// Get today's date
 			DateTime currentDate = DateTime.Now;
@@ -124,24 +124,29 @@ namespace E_Commerce___DEPI.Controllers
             return View(remainingArchivedOrders);
         }
 
-        public IActionResult OrderDetails(int orderId)
+        public IActionResult OrderDetails(int orderId, string isAdmin)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
+			//if (!SessionHelper.IsLoggedIn(this, context))
+			//	return View(HomeController.LoggedInView);
 
 			Order order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+            List<OrderdItem> orderItems = order.OrderdItems.ToList();
             ViewData["order"] = order;
+            ViewData["orderItems"] = orderItems;
+            bool isAdminBool = isAdmin == "true";
+            ViewData["isAdminBool"] = isAdminBool;
             return View();
         }
 
         [HttpPost]
 
-        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList)
+        public IActionResult ChangeOrderStatus(int orderId, int orderState, string isList, string isAdmin)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
+			//if (!SessionHelper.IsLoggedIn(this, context))
+			//	return View(HomeController.LoggedInView);
 
 			bool isListBool = isList == "true";
+            bool isAdmintBool = isAdmin == "true";
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
 
@@ -180,10 +185,18 @@ namespace E_Commerce___DEPI.Controllers
                     // Remove the order from the database
                     context.Orders.Remove(order);
                     ViewData["isOrderDeleted"] = true;
+                    // Save the changes to the database
+                    context.SaveChanges();
+                    if (!isAdmintBool)
+                    {
+                        // Redirect to the Cart action in the desired controller
+                        return RedirectToAction("Index", "Home", new { page = 1, categoryPage = 1 });
+                    }
+                    else
+                    {
+                        return RedirectToAction("ListOrder");
+                    }
                 }
-
-                // Save the changes to the database
-                context.SaveChanges();
             }
             if (isListBool == true)
             {
@@ -191,15 +204,36 @@ namespace E_Commerce___DEPI.Controllers
             }
             else
             {
-                return RedirectToAction("OrderDetails", new{ orderId= orderId });
+                if (isAdmintBool)
+                {
+                    return RedirectToAction("OrderDetails", new { orderId = orderId, isAdmin = "true" });
+                }
+                return RedirectToAction("OrderDetails", new{ orderId= orderId});
             }
             
         }
 
+        public IActionResult CancelOrder(int orderId) {
+            // Fetch the order based on the ID
+            var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
+
+            // remove the related order items
+            if (order.OrderdItems != null && order.OrderdItems.Any())
+            {
+                // Delete the related order items
+                context.OrderdItems.RemoveRange(order.OrderdItems); // Remove all items related to the order
+            }
+            // Remove the order from the database
+            context.Orders.Remove(order);
+            context.SaveChanges();
+            // Redirect to the Cart action in the desired controller
+            return RedirectToAction("Index", "Home", new { page = 1, categoryPage = 1 });
+        }
+
         public IActionResult DeleteArchivedOrder(int orderId)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
+			//if (!SessionHelper.IsLoggedIn(this, context))
+			//	return View(HomeController.LoggedInView);
 
 			var arrchivedOrder = context.OrderArchives.FirstOrDefault(o => o.Id == orderId);
             if (arrchivedOrder != null)
@@ -224,8 +258,8 @@ namespace E_Commerce___DEPI.Controllers
         }
         public IActionResult CustomerOrders(int id)
         {
-			if (!SessionHelper.IsLoggedIn(this, context))
-				return View(HomeController.LoggedInView);
+			//if (!SessionHelper.IsLoggedIn(this, context))
+			//	return View(HomeController.LoggedInView);
 
 			IEnumerable<Order> orders = context.Orders.Where(o => o.CustomerId == id);
             //var orderArchives= context.OrderArchives.Where(o=>o.Order.CustomerId == id);

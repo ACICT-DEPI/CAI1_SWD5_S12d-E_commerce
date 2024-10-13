@@ -5,39 +5,145 @@
     ViewData["Title"] = "Order Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var order = ViewData["order"] as E_Commerce___DEPI.Models.Order; // Retrieve from ViewData
+    var orderItems = ViewData["orderItems"] as List<OrderdItem>; // Retrieve from ViewData
+    bool isAdmin = ViewData["isAdminBool"] != null && (bool)ViewData["isAdminBool"];
 }
 
 @{
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-        </div>
-    </div>
-    <div class="col-8">
-        <form asp-action="ChangeOrderStatus" asp-controller="Order" method="post" class="d-flex align-items-center">
-            <input type="hidden" name="orderId" value="@order.Id" />
-            <input type="hidden" name="isList" value="@false" />
-            <!-- Align Select and Button Side by Side -->
-            <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
-                <option value="" disabled selected>Change Status</option>
-                @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))
-                {
-                    <option value="@((int)state)">@state</option>
-                }
-            </select>
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="my-3">Order State: @order.Status</h5>
+                            <h5 class="my-3">Total: @order.total</h5>
+                            <p class="text-muted mb-1">@order.Date</p>
+                            <div>
+                                @if (isAdmin)
+                                {
+                                    <form asp-action="ChangeOrderStatus" asp-controller="Order" method="post" class="d-flex align-items-center">
+                                        <input type="hidden" name="orderId" value="@order.Id" />
+                                        <input type="hidden" name="isList" value="false" />
+                                        <input type="hidden" name="isAdmin" value="true" />
+                                        
+                                        <!-- Align Select and Button Side by Side -->
+                                        <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
+                                            <option value="" disabled selected>Change Status</option>
+                                            @foreach (OrderState state in Enum.GetValues(typeof(OrderState)))
+                                            {
+                                                <option value="@((int)state)">@state</option>
+                                            }
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 200px;">Update Status</button>
 
-            <button type="submit" class="btn btn-outline-success btn-sm" style="width: 200px;">Update Status</button>
-        </form>
-    </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <div class="d-flex justify-content-center mb-2">
+                                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">
+                                            <a asp-controller="Order" asp-action="CancelOrder" asp-route-orderId="@order.Id">Cancel Order</a>
+                                        </button>
+                                    </div>
+                                }
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <p class="mb-0">City</p>
+                                    <p class="mb-0">@order.Address.ShippmentCities.CityName</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <p class="mb-0">ZipCode</p>
+                                    <p class="mb-0">@order.Address.ZipCode</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <p class="mb-0">Street</p>
+                                    <p class="mb-0">@order.Address.Street</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                    <p class="mb-0">Home Number</p>
+                                    <p class="mb-0">@order.Address.Num</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@order.Customer.Fname @order.Customer.Lname</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@order.Customer.Email</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@order.Customer.Phone</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var item in orderItems)
+                    {
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-lg-8">
+                                <div class="card mb-4 mb-md-0">
+                                    <div class="card-body">
+                                        <div class="col-12 mb-4">
+                                            <div class="card h-100">
+                                                <div class="row g-0">
+                                                    <div class="col-5">
+                                                        <img src="@item.Product.img1" class="img-fluid rounded-start" alt="@item.Product.Name" style="height: 100%; width: 100%; object-fit: cover;" />
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title" style="font-size: 2rem;">@item.Product.Name</h3>
+                                                            <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                                                <strong>Price:</strong> $@item.Product.Price 
+                                                            </p>
+                                                            
+                                                            <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                                                <strong>Amount:</strong> @item.Amount
+                                                            </p>
+                                                            <p class="card-text mb-1" style="font-size: 1.25rem;">
+                                                                <strong>Description:</strong> @item.Product.Description
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </section>
 }
