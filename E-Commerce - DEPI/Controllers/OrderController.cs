@@ -7,9 +7,23 @@ namespace E_Commerce___DEPI.Controllers
     public class OrderController : Controller
     {
         DbIntities context = new DbIntities();
-        public IActionResult ListOrder()
+        public IActionResult ListOrder(string sortOrder)
         {
             List<Order> orders = context.Orders.ToList();
+            // Sorting logic
+            if (sortOrder != null)
+            {
+                switch (sortOrder)
+                {
+                    case "date_desc":
+                        orders = orders.OrderByDescending(o => o.Date).ToList();
+                        break;
+                    default:
+                        orders = orders.OrderBy(o => o.Date).ToList();
+                        break;
+                }
+            }
+            
             ViewData["orders"] = orders;
             return View();
         }
@@ -152,6 +166,12 @@ namespace E_Commerce___DEPI.Controllers
             }
                 return RedirectToAction("ListArchivedOrders");
         }
+
+        //public IActionResult ListOrdersDescending()
+        //{
+
+        //    return View("ListOrder");
+        //}
 
     }
 }
