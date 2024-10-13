@@ -61,7 +61,7 @@
                                         <div class="col-8">
                                             <form asp-action="ChangeOrderStatus" asp-controller="Order" method="post" class="d-flex align-items-center">
                                                 <input type="hidden" name="orderId" value="@item.Id" />
-
+                                                <input type="hidden" name="isList" value="@true" />
                                                 <!-- Align Select and Button Side by Side -->
                                                 <select id="orderStateSelect" class="form-select me-2 w-50" name="OrderState" style="width: 150px; color:#827589; border: 1px solid #ccc; border-radius: 0.25rem;">
                                                     <option value="" disabled selected>Change Status</option>
@@ -82,6 +82,7 @@
                 }
             </tbody>
         </table>
+        <a class="btn btn-success" asp-controller="Order" asp-action="ListArchivedOrders">Show Archived Orders</a>
     }
     
 }

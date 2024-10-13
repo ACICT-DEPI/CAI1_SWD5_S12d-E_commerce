@@ -73,7 +73,7 @@ namespace E_Commerce___DEPI.Controllers
 
         [HttpPost]
 
-        public IActionResult ChangeOrderStatus(int orderId, int orderState)
+        public IActionResult ChangeOrderStatus(int orderId, int orderState, bool isList)
         {
             // Fetch the order based on the ID
             var order = context.Orders.FirstOrDefault(o => o.Id == orderId);
@@ -118,8 +118,15 @@ namespace E_Commerce___DEPI.Controllers
                 // Save the changes to the database
                 context.SaveChanges();
             }
-
-            return RedirectToAction("ListOrder");
+            if (isList)
+            {
+                return RedirectToAction("ListOrder");
+            }
+            else
+            {
+                return RedirectToAction("OrderDetails", new{ orderId= orderId });
+            }
+            
         }
 
         public IActionResult DeleteArchivedOrder(int orderId)
